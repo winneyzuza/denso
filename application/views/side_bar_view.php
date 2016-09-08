@@ -19,12 +19,17 @@
 
 	<?php if ($this->session->userdata('logged_in')) { ?>
 		<div class="exchange">
+		<ul>
+			<li><?php echo lang('edit_profile'); ?></li>
 			<ul>
+            	<div id="sidemenu">
+                	<li><?php echo anchor('editProfile/editDealerPwdScreen', lang('edit_password')); ?></li>
+                    <li><?php echo anchor('editProfile/editDealerInfoScreen', lang('edit_profile_info')); ?></li>
+                </div>
+			</ul>				
 				<li><?php echo lang('side_exchange_system'); ?></li>
 				<ul>
-					<li>
-						<a href="<?php echo base_url(); ?>"><?php echo lang('side_DFIP'); ?></a>
-					</li>
+					<li><a href="<?php echo base_url(); ?>"><?php echo lang('side_DFIP'); ?></a></li>
 				</ul>
 			</ul>
 		</div>

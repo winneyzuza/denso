@@ -1,6 +1,6 @@
 #side_bar{
 	border: 1px solid black;
-	width: 190px;
+	width: 220px;
 	position: absolute;
 	top: 228px;
 	bottom: 0;
@@ -28,7 +28,7 @@
 }
 
 #main_content{
-	margin-left: 200px;
+	margin-left: 230px;
 	margin-top: 20px;
 	/*text-align: center;*/
 }

@@ -6,3 +6,9 @@ $lang['home_heading_login'] = "Login below: ";
 $lang['home_create_ros'] = "Create New ROS";
 $lang['home_ros_management'] = "ROS Management";
 $lang['home_invalid_login'] = "Invalid ID or password.";
+
+/*****************************CHANGE PASSWORD VARIABLES**********************/
+$lang['confirm'] = "Confirm";
+$lang['password_original'] = "Current Password";
+$lang['password_new'] = "New Password";
+$lang['password_new_confirm'] = "Confirm New Password";
