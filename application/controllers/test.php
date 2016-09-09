@@ -20,7 +20,7 @@ class Test extends CI_Controller {
             }
             else{
                 $data['hi'] = "hi";
-                $data['hay'] = "How are u";
+                $data['hay'] = "How are u DTB";
             }
             $this->load->view("test",$data);
             
