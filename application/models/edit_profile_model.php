@@ -31,7 +31,15 @@ class Edit_profile_model extends CI_Model {
 		else
 			return false;
 	}
+        public function getUser($username){
+                return $this->db->query("select * from user_auth where username='".$username."'");
+        }
+        
+        public function updateUserPwd($fixed_pw, $db_id){
+                
+                return $this->db->query("Update user_auth SET password='".$fixed_pw."' WHERE id=$db_id")or die(mysql_error());
 
+        }
 }
 
 /* End of file admin_model.php */

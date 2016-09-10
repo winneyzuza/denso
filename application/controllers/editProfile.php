@@ -55,10 +55,12 @@ class editProfile extends CI_Controller {
 		$this->lang->load('home',$lang);
 	
 		$this->load->helper('language');
+                $this->load->library('form_validation');
 	}
 	public function index() {
 		
 		redirect ( 'home' );
+                
 	}
 	
 	public function initHome() {
@@ -68,8 +70,68 @@ class editProfile extends CI_Controller {
 	
 	public function editDealerPwdScreen() {
 		$this->initHome();
-		$this->load->view ( 'edit_password_view' );
+                $this->load->view ( 'edit_password_view' );
+                
+                $this->load->library('form_validation');
+                $this->form_validation->set_rules('opassword', 'Old Password', 'required|trim|xss_clean|callback_change');
+                $this->form_validation->set_rules('npassword', 'New Password', 'required|trim');
+                $this->form_validation->set_rules('cpassword', 'Confirm Password', 'required|trim|matches[npassword]');
+                
+                
+                if ($this->form_validation->run() == FALSE) {
+                    
+                     echo validation_errors();
+                   
+                }
+		
 	}
+        
+        public function change() { // we will load models here to check with database
+            //$session_data = $this->session->userdata('logged_in');
+            //$query=$this->db->query("select * from user where id=".$session_data['id']);
+            $username = $this->session->userdata('username');
+            $this->load->model('edit_profile_model');
+            $query = $this->edit_profile_model->getUser($username);
+            //$query = $this->db->query("select * from user_auth where username='".$username."'");
+            foreach ($query->result() as $my_info) {
+
+                $db_password = $my_info->password;
+                echo "Pwd " . $db_password;
+
+                $input_pwd = $this->input->post('opassword', $db_password);
+                echo $input_pwd;
+
+                $db_id = $my_info->id;
+                $db_salt = $my_info->salt;
+                echo "salt " . $db_salt;
+            }
+
+            if ((hash("sha256", $input_pwd . $db_salt) == $db_password) && ($this->input->post('npassword') != '') && ($this->input->post('cpassword') != '')) {
+                //if ($db_password == $input_pwd) {
+                //$fixed_pw = md5($this->input->post('npassword'));
+                $fixed_pw = hash("sha256", $this->input->post('npassword') . $db_salt);
+                //$fixed_pw = $this->input->post('npassword');
+                //$update = $this->db->query("Update user_auth SET password='".$fixed_pw."' WHERE id=$db_id")or die(mysql_error());
+                if($this->edit_profile_model->updateUserPwd($fixed_pw,$db_id)){
+                    
+                    echo 'OK';
+                }else{
+                    
+                    echo 'Not OK';
+                }
+                
+                
+                $this->form_validation->set_message('change', '<div class="alert alert-success"><a href="#" class="close" data-dismiss="alert">&times;</a>
+                <strong>Password Updated!</strong></div>');
+
+                return false;
+            } else {
+                $this->form_validation->set_message('change', '<div class="alert alert-error"><a href="#" class="close" data-dismiss="alert">&times;</a>
+                <strong>Wrong Old Password!</strong> </div>');
+
+                return false;
+            }
+        }
 	
 	public function editDealerInfoScreen() {
 		$this->load->model('edit_profile_model');
