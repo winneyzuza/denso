@@ -1,8 +1,22 @@
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>application/assets/css/home.css">
+<style> 
+div .content {
+    border: 2px solid #a1a1a1;
+    padding: 10px 40px; 
+    background: #0000;
+    width: 300px;
+    border-radius: 25px;
+}
+.button{
+    width:100px;
+    margin-left:auto;
+    margin-right:auto;
+}
 
+</style>
 <body>
     
-   <div class="content">
+   <div class="content" style="border: ">
    <h1>Change Password</h1>
    <?PHP
        if (validation_errors()) {
@@ -46,7 +60,7 @@
                  </tbody>
          </table>
         <br/>
-        <div style="position:relative;">
+        <div style="margin-left: 45px;">
             <input type="submit" name="bt" id="bt" class="button blue_back" value="Submit" />
             <button type="reset" class="button blue_back">Clear</button>
             
