@@ -3,9 +3,10 @@
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>application/assets/css/font-awesome.min.css">
 <!-- <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>application/assets/css/jquery-ui.min.css"> -->
 <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css"> -->
-<form method="POST" id="create_frm">
 
-	<div id="tabs">
+
+<form method="POST" id="create_frm">
+        <div id="tabs">
 	<div id="save_draft" title="<?php echo lang('create_save_draft'); ?>" data-action="<?php echo (isset($ros_info['ros_no']) AND $ros_info['status']=='Draft')?('update'):('add'); ?>"></div>
 	<div id="del_draft" title="<?php echo lang('create_delete_draft'); ?>" data-rosno="<?php echo (isset($ros_info['ros_no']) AND $ros_info['status']=='Draft')?($ros_info['ros_no']):('0'); ?>"></div>
         <div id="printform"></div>
@@ -16,10 +17,46 @@
 			<!-- <li><a href="#page_3"><?php echo lang('create_menu_part_exchange'); ?></a></li> -->
 		</ul>
 		<div id="page_1" class="frm_part">
-			<table>
+			<?php 
+                            if($dealer_status==='1') {
+                               
+                        ?>
+                        <table>
+                                
 				<tr>
 					<td><?php echo lang('create_service_dealer_name'); ?></td>
-					<td style="width:400px;"><u><b><?php if(isset($sd_info[lang('create_sd_name')])) echo $sd_info[lang('create_sd_name')]; ?></b></u></td>						<!-- FETCH FROM THE DATABASE -->
+                                        <td>
+                                            <select name="sd_id" id="sd_id" class="req_field">
+                                                    <option value="" selected="selected">
+                                                        <?php echo "- - - - - - - ". lang('create_service_dealer_name'). " - - - - - - - -" ; ?></option>
+                                                    <?php foreach ($service_dealers as $key => $row) { ?>
+                                                        <option value="<?php echo $row['sd_id'] ?>"><?php echo $row[lang("create_sd_name")] ?></option>
+                                                    <?php } ?>
+                                            </select>
+                                        </td>
+				</tr>
+
+				<tr>
+					<td><?php echo lang('create_service_dealer_address'); ?></td>
+                                        <td style="width:400px;" ><u><b id="address"><?php if(isset($sd_info['address'])) echo $sd_info['address']; ?></b></u></td>							<!-- FETCH FROM THE DATABASE -->
+				</tr>
+
+				<tr>
+					<td><?php echo lang('create_service_dealer_telephone'); ?></td>
+                                        <td style="width:400px;"><u><b id="tel"><?php if(isset($sd_info['phone'])) echo $sd_info['phone']; ?></b></u></td>								<!-- FETCH FROM THE DATABASE -->
+				</tr>
+
+				<tr>
+					<td><?php echo lang('create_service_dealer_fax'); ?></td>
+                                        <td style="width:400px;"><u><b id="fax"><?php if(isset($sd_info['fax'])) echo $sd_info['fax']; ?></b></u></td>								<!-- FETCH FROM THE DATABASE -->
+				</tr>
+			</table>
+                    <?php } else {?>
+                    
+                        <table>
+				<tr>
+                                        <td><?php echo lang('create_service_dealer_name'); ?></td>
+                                        <td style="width:400px;"><u><b><?php if(isset($sd_info[lang('create_sd_name')])) echo $sd_info[lang('create_sd_name')]; ?></b></u></td>						<!-- FETCH FROM THE DATABASE -->
 				</tr>
 
 				<tr>
@@ -37,7 +74,7 @@
 					<td style="width:400px;"><u><b><?php if(isset($sd_info['fax'])) echo $sd_info['fax']; ?></b></u></td>								<!-- FETCH FROM THE DATABASE -->
 				</tr>
 			</table>
-
+                    <?php } ?>
 			<br/><br/><br/><hr/>
 			<h2><?php echo lang('create_menu_dealer_info'); ?><span class="required">*</span></h2>
 			<label><?php echo lang('create_car_maker'); ?><span class="required">*</span>
@@ -216,8 +253,8 @@
   <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>-->
 <script>
 	$(document).ready(function(){
-		// SHOW SOME FANCY LOADING
-		var warranty_info = {};
+        // SHOW SOME FANCY LOADING
+	var warranty_info = {};
         var frontd = '<option value="<?PHP echo $this->session->userdata("sd_id"); ?>"><?PHP if(isset($sd_info[lang('create_sd_name')])) echo $sd_info[lang('create_sd_name')]; ?></option>';
         var fronto = '<?PHP if(isset($sd_info[lang('create_sd_name')])) echo $sd_info[lang('create_sd_name')]; ?>';
         var ajaxd = '<option value=""><?php echo lang('create_general_select'); ?></option>';
@@ -310,6 +347,10 @@
                 case "car_problem":
                     car_problem_change();
                 break;
+                
+                case "sd_id":
+                    service_name_change();
+                break;
                         
                 case "frame_no":
                 case "engine_no":
@@ -344,6 +385,31 @@
 			});
 		}
                 
+        $("select[name='sd_id']").on("change",service_name_change);
+        
+        function service_name_change(){
+            var sd_id = $(this).val();
+            $.ajax({
+
+                    url: "<?php echo base_url(); ?>index.php/create/getAddress",
+                    type: "POST",
+                    data: "sid="+sd_id,
+                    dataType: "json",
+                    async: true,
+                    catch:false,
+                    success: function(data){
+                             $("#address").html(data.address);   
+                             $("#phone").html(data.phone);
+                             $("#fax").html(data.fax);   
+                       
+                    },
+                    error: function(){
+                            alert("Error with response")
+                    }        
+                   
+            });
+        }
+        
         $("select[name='car_problem']").on("change",car_problem_change);
         
         function car_problem_change(){

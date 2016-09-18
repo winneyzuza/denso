@@ -139,6 +139,30 @@ class Create_model extends CI_Model {
 		$table = "car_makers";
 		return $this->db->select($select)->get($table)->result_array();
 	}
+        
+        public function getLoginStatus($username){
+                $this->db->select('login_status')->from('user_auth')->where('username',$username);
+
+                $query = $this->db->get();
+
+                if ($query->num_rows() > 0) {
+                    return $query->row()->login_status;
+                }
+                return false;
+        }
+        
+        public function getAllAdress($sid){
+                
+                return $this->db->query("select address,phone,fax from service_dealer where sd_id='".$sid."'");
+        
+        }
+        
+        public function getservicedealers()
+	{       
+                $select= "sd_id,".lang("create_sd_name");
+		$table = "service_dealer";
+		return $this->db->select($select)->get($table)->result_array();
+	}
 
 	public function getcarmodels($PostData)
 	{

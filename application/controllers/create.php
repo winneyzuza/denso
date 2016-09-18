@@ -5,9 +5,9 @@ class Create extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-
+                $this->load->model('create_model');
 		if(!$this->session->userdata("logged_in")){
-            redirect('home?next='.urlencode(uri_string()));
+                    redirect('home?next='.urlencode(uri_string()));
 		}
 		$lang = $this->input->get('lang');
 
@@ -201,6 +201,11 @@ class Create extends CI_Controller {
         } else if($ros_no===""){
             // $data['problems'] = $this->create_model->getproblems();
             $data['sd_info'] = $this->create_model->getsdinfo($this->session->userdata('sd_id'));
+            // check login status to have permission to change data
+            $data['dealer_status'] = $this->create_model->getLoginStatus($this->session->userdata('username'));
+            // getservicedealers list
+            $data['service_dealers'] = $this->create_model->getservicedealers();
+            //
             $data['car_makers'] = $this->create_model->getcarmakers();
             $data['part_types'] = $this->create_model->getparttypes($this->session->userdata('sd_id'));
             $data['regions'] = $this->create_model->getregions();
@@ -219,6 +224,11 @@ class Create extends CI_Controller {
             // $data['problems'] = $this->create_model->getproblems();
             $data['sd_info'] = $this->create_model->getsdinfo($this->session->userdata('sd_id'));
             $data['car_makers'] = $this->create_model->getcarmakers();
+            // check login status to have permission to change data
+            $data['dealer_status'] = $this->create_model->getLoginStatus($this->session->userdata('username'));
+            // getservicedealers list
+            $data['service_dealers'] = $this->create_model->getservicedealers();
+            //
             // Get the part types for the SD.
             $data['part_types'] = $this->create_model->getparttypes($this->session->userdata('sd_id'));
             $data['regions'] = $this->create_model->getregions();
@@ -596,6 +606,22 @@ class Create extends CI_Controller {
 
 		echo json_encode($return);
 	}
+        
+        public function getAddress(){
+            $sid= $this->input->post('sid');
+            $query = $this->create_model->getAllAdress($sid);
+            foreach ($query->result_array() as $row)
+            {
+                $arr =  array(
+                    'address'=> $row['address'],
+                    'phone' => $row['phone'],
+                    'fax' => $row['fax']
+                );
+                   
+            }
+            
+            echo json_encode($arr);
+        }
 }
 
 /* End of file create.php */
