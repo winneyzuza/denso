@@ -8,7 +8,9 @@ $lang['home_ros_management'] = "ROS Management";
 $lang['home_invalid_login'] = "Invalid ID or password.";
 
 /*****************************CHANGE PASSWORD VARIABLES**********************/
+$lang['change_password'] = "Change Password";
 $lang['confirm'] = "Confirm";
+$lang['clear'] = "Clear";
 $lang['password_original'] = "Current Password";
 $lang['password_new'] = "New Password";
-$lang['password_new_confirm'] = "Confirm New Password";
+$lang['password_new_confirm'] = "Confirm Password";

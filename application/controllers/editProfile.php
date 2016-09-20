@@ -114,7 +114,9 @@ class editProfile extends CI_Controller {
                 }
                 return false;
             } else {
-                $this->session->set_userdata('status','Wrong Old Password!');
+                if($input_pwd  != ''){
+                    $this->session->set_userdata('status','Wrong Old Password!');
+                }
                 return false;
             }
         }

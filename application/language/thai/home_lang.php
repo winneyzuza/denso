@@ -8,7 +8,9 @@ $lang['home_ros_management'] = "แสดงข้อมูลการแลก
 $lang['home_invalid_login'] = "ID หรือรหัสผ่านไม่ถูกต้อง";
 
 /*****************************CHANGE PASSWORD VARIABLES**********************/
+$lang['change_password'] = "เปลี่ยนรหัสผ่าน";
 $lang['confirm'] = "ตกลง";
+$lang['clear'] = "ล้าง";
 $lang['password_original'] = "รหัสผ่านเดิม";
 $lang['password_new'] = "รหัสผ่านใหม่";
 $lang['password_new_confirm'] = "ยืนยันรหัสผ่านใหม่";

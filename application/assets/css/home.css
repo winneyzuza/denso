@@ -24,3 +24,16 @@ table input{
 	border-radius: 5px;
 	border: 1px solid black;
 }
+
+div .content {
+    border: 2px solid #a1a1a1;
+    padding: 10px 40px; 
+    background: white;
+    width: 300px;
+    border-radius: 10px;
+}
+.button{
+    width:100px;
+    margin-left:auto;
+    margin-right:auto;
+}

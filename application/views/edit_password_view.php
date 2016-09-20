@@ -1,23 +1,9 @@
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>application/assets/css/home.css">
-<style> 
-div .content {
-    border: 2px solid #a1a1a1;
-    padding: 10px 40px; 
-    background: #0000;
-    width: 300px;
-    border-radius: 25px;
-}
-.button{
-    width:100px;
-    margin-left:auto;
-    margin-right:auto;
-}
 
-</style>
 <body>
     
-   <div class="content" style="border: ">
-   <h1>Change Password</h1>
+   <div class="content">
+   <h3><?php echo lang('change_password'); ?></h3>
    <?PHP
        if (validation_errors()) {
            echo "<script>window.onload = function(){alert('" . validation_errors() . "');}</script>";
@@ -35,7 +21,7 @@ div .content {
                 <tbody>
 
                      <tr>
-                         <td><label for="password">Old Password:</label></td>
+                         <td><label for="password"><?php echo lang('password_original'); ?></label></td>
                          <td>
                              <input type="password" name="opassword" id="opassword" 
                                 placeholder="Old Password"/>
@@ -43,7 +29,7 @@ div .content {
                      </tr>
                      
                      <tr>
-                         <td><label for="password">New Password:</label></td>
+                         <td><label for="password"><?php echo lang('password_new'); ?></label></td>
                          <td>
                              <input type="password" name="npassword" id="opassword" 
                                 placeholder="New Password"/>
@@ -51,7 +37,7 @@ div .content {
                      </tr>
                      
                      <tr>
-                         <td><label for="password">Confirm Password:</label></td>
+                         <td><label for="password"><?php echo lang('password_new_confirm'); ?></label></td>
                          <td>
                              <input type="password" name="cpassword" id="opassword" 
                                 placeholder="Confirm Password"/>
@@ -61,8 +47,8 @@ div .content {
          </table>
         <br/>
         <div style="margin-left: 45px;">
-            <input type="submit" name="bt" id="bt" class="button blue_back" value="Submit" />
-            <button type="reset" class="button blue_back">Clear</button>
+            <input type="submit" name="bt" id="bt" class="button blue_back" value="<?php echo lang('confirm'); ?>" />
+            <button type="reset" class="button blue_back"><?php echo lang('clear'); ?></button>
             
         </div>
     </form>
