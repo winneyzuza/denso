@@ -53,13 +53,15 @@ class editProfile extends CI_Controller {
 		$this->lang->load('manage',$lang);
 		$this->lang->load('create',$lang);
 		$this->lang->load('home',$lang);
+		$this->lang->load("edit_profile",$lang);
 	
 		$this->load->helper('language');
                 $this->load->library('form_validation');
 	}
 	public function index() {
 		
-		redirect('home');
+		$this->session->unset_userdata('result');
+		redirect ( 'home' );
                 
 	}
 	
@@ -136,54 +138,47 @@ class editProfile extends CI_Controller {
 	
 	public function editDealerInfoAction() {
 		
+		$data['result'] =  '';
+		
 		if($this->input->post()){
 			$this->form_validation->set_error_delimiters('', '\n\\');
 			$this->form_validation->set_rules('sd_id','Service Dealer','trim|max_length[6]');
 			$this->form_validation->set_rules('NameEnglish','Name English','trim|required');
 			$this->form_validation->set_rules('NameThai','Name Thai','trim');
-			//$this->form_validation->set_rules('LocationEnglish','Location English','trim');
-			//$this->form_validation->set_rules('LocationThai','Location Thai','trim');
-			$this->form_validation->set_rules('Region','Region','trim|max_length[20]');
+			$this->form_validation->set_rules('RegionCode','Region','trim|max_length[20]');
 			$this->form_validation->set_rules('Address','Address','trim');
 			$this->form_validation->set_rules('PrimaryPhone','Primary Phone','trim');
 			$this->form_validation->set_rules('Phone','Phone','trim');
 			$this->form_validation->set_rules('Fax','Fax','trim');
 			
 			if($this->form_validation->run() == FALSE){
-				$this->initHome();
-				$this->load->view ( 'edit_dealer_info_view' );
+				//$this->initHome();
+				//$this->load->view ( 'edit_dealer_info_view' );
 			}
 			else{
 				$UpdateServiceDealerData = array(
 						'sd_id'      	=> $this->input->post('sd_id'),
 						'name_eng'      => $this->input->post('NameEnglish'),
 						'name_th'       => $this->input->post('NameThai'),
-						//'location_en'   => $this->input->post('LocationEnglish'),
-						//'location_th'   => $this->input->post('LocationThai'),
-						'region'        => $this->input->post('Region'),
+						'region_code'   => $this->input->post('RegionCode'),
 						'address'       => $this->input->post('Address'),
 						'primary_phone' => $this->input->post('PrimaryPhone'),
 						'phone'         => $this->input->post('Phone'),
 						'fax'           => $this->input->post('Fax'),
-						'email'			=> $this->input->post('email')
+						'owner'           => $this->input->post('Owner'),
+						'email'			=> $this->input->post('Email')
 				);
 				$id = $UpdateServiceDealerData['sd_id'];
 				$this->load->model('edit_profile_model');
 				if($this->edit_profile_model->updatedealer($UpdateServiceDealerData, $id, 'service_dealer')){
-					$this->initHome();
-					$this->load->view ( 'edit_password_view' );
+					$this->session->set_userdata(array('result' => 'update_successful'));
 				}
 				else{
-					$data['error'] =  'Update error...';
-					$this->load->view('header_view');
-					$this->load->view('side_bar_view');
-					$this->load->view('error_view');
-					$this->load->view('footer_view');
+					$this->session->set_userdata(array('result' => 'update_error'));
 				}
 			}
 		}
-		
-		$this->initHome();
-		$this->load->view ( 'edit_dealer_info_view' );
+
+		$this->editDealerInfoScreen();
 	}
 }
