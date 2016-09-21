@@ -1,9 +1,9 @@
 <?php 
 /*****************************CHANGE PASSWORD VARIABLES**********************/
-$lang['confirm'] = "ตกลง";
-$lang['password_original'] = "รหัสผ่านเดิม";
-$lang['password_new'] = "รหัสผ่านใหม่";
-$lang['password_new_confirm'] = "ยืนยันรหัสผ่านใหม่";
+$lang['confirm'] = "Update";
+$lang['password_original'] = "Old Password";
+$lang['password_new'] = "New Password";
+$lang['password_new_confirm'] = "Confirm New Password";
 
 /*****************************CHANGE Address VARIABLES**********************/
 $lang['service_dealer_title'] = "ข้อมูลศูนย์บริการเด็นโซ่";
