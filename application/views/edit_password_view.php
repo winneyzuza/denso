@@ -3,7 +3,7 @@
 <body>
     
    <div class="content">
-   <h3><?php echo lang('change_password'); ?></h3>
+   
    <?PHP
        if (validation_errors()) {
            echo "<script>window.onload = function(){alert('" . validation_errors() . "');}</script>";
@@ -16,42 +16,56 @@
    ?>
    
    <form id="pwd" name="pwd" action="<?PHP echo base_url();?>index.php/editProfile/editDealerPwdScreen" method="post">
-        <table class=”table table-bordered”>
+       <div class="center_table"><h3><?php echo lang('change_password'); ?></h3> </div>
+           <table class="center_table">
 
                 <tbody>
 
                      <tr>
-                         <td><label for="password"><?php echo lang('password_original'); ?></label></td>
+                         <td><label for="password" required><?php echo lang('password_original'); ?></label></td>
                          <td>
                              <input type="password" name="opassword" id="opassword" 
-                                placeholder="Old Password"/>
+                                placeholder="<?php echo lang('password_original'); ?>" autocomplete="off"/>
                          </td>
                      </tr>
                      
                      <tr>
-                         <td><label for="password"><?php echo lang('password_new'); ?></label></td>
+                         <td><label for="password" required><?php echo lang('password_new'); ?></label></td>
                          <td>
                              <input type="password" name="npassword" id="opassword" 
-                                placeholder="New Password"/>
+                                placeholder="<?php echo lang('password_new'); ?>" autocomplete="off"/>
                          </td>
                      </tr>
                      
                      <tr>
-                         <td><label for="password"><?php echo lang('password_new_confirm'); ?></label></td>
+                         <td><label for="password" required><?php echo lang('password_new_confirm'); ?></label></td>
                          <td>
                              <input type="password" name="cpassword" id="opassword" 
-                                placeholder="Confirm Password"/>
+                                placeholder="<?php echo lang('password_new_confirm'); ?>" autocomplete="off"/>
                          </td>
                      </tr>
                  </tbody>
          </table>
         <br/>
-        <div style="margin-left: 45px;">
+        <div class="center_table">
             <input type="submit" name="bt" id="bt" class="button blue_back" value="<?php echo lang('confirm'); ?>" />
             <button type="reset" class="button blue_back"><?php echo lang('clear'); ?></button>
             
         </div>
+        
     </form>
+   <style>
+       .required {
+        color: red;
+        font-size: 15px;
+    }
+   </style>
+   <script src="<?php echo base_url(); ?>application/assets/js/jquery-1.11.2.min.js"></script>
+   <script>
+   jQuery(document).ready(function() {
+        jQuery("[required]").after("<span class='required'>*</span>");
+       });
+   </script>
 </body>
   
     
