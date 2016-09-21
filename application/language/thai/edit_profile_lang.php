@@ -24,3 +24,6 @@ $lang['cancel_button'] = "ยกเลิก";
 $lang['update_successful'] = "ข้อมูลถูกอัพเดทเรียบร้อยแล้ว";
 $lang['update_error'] = "ข้อมูลไม่สามารถอัพเดท เนื่องจากปัญหาด้านการเชื่อมต่อ กรุณาลองใหม่อีกครั้ง";
 
+$lang['update_password_successful'] = "ข้อมูลถูกอัพเดทเรียบร้อยแล้ว";
+$lang['update__password_error'] = "อัพเดทข้อมูลไม่สำเร็จ";
+$lang['password_wrong'] = "พาสเวิร์ดเก่าไม่ถูกต้อง";

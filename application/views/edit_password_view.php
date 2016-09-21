@@ -10,7 +10,16 @@
        }else{
           if($this->session->userdata('status') != ''){
                 $msg = $this->session->userdata('status');
-                echo "<script>window.onload = function(){alert('" . $msg . "');}</script>";
+                if($msg != ''){
+	          	if($msg == 'Password updated successfully'){
+                            echo "<script>window.onload = function(){alert('" . lang('update_password_successful') . "');}</script>";
+                        }else if($msg == 'Password updated fail'){
+                            echo "<script>window.onload = function(){alert('" . lang('update__password_error') . "');}</script>";
+                        }else{
+                            echo "<script>window.onload = function(){alert('" . lang('password_wrong') . "');}</script>";
+                        }
+                
+                }
           }
        }
    ?>

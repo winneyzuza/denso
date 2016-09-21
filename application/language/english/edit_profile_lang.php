@@ -18,3 +18,10 @@ $lang['service_dealer_onwer'] = "ผู้รับผิดชอบ";
 $lang['service_dealer_email'] = "อีเมล์";
 $lang['ok_button'] = "ตกลง";
 $lang['reset_button'] = "รีเซต";
+
+
+/***************************** Notify **********************/
+$lang['update_password_successful'] = "Password has been updated";
+$lang['update__password_error'] = "Password updated fail";
+$lang['password_wrong'] = "Old passwoed is wrong";
+
