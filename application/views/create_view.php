@@ -125,7 +125,7 @@
 			</label>
 			<br/><br/>
 			<h2><?php echo lang('create_part_type'); ?><span class="required">*</span></h2>
-			<select name="part_id" class="part_type" disabled>
+                        <select name="part_id" class="part_type" disabled id="part_id">
 				<!-- <option value=""><?php echo lang('create_part_type'); ?></option> -->
 				<?php foreach ($part_types as $key => $value) {
 					echo "<option value='".$value['part_id']."' data-prefix='".$value['table_prefix']."'>".$value[lang('create_part_type_column')]."</option>";
@@ -389,6 +389,9 @@
         
         function service_name_change(){
             var sd_id = $(this).val();
+            $('#part_id')
+                .empty()
+            ;
             $.ajax({
 
                     url: "<?php echo base_url(); ?>index.php/create/getAddress",
@@ -400,11 +403,41 @@
                     success: function(data){
                              $("#address").html(data.address);   
                              $("#phone").html(data.phone);
-                             $("#fax").html(data.fax);   
-                       
+                             $("#fax").html(data.fax);
+                             
                     },
                     error: function(){
-                            alert("Error with response")
+                            alert("Error with response");
+                    }        
+                   
+            });
+            var lang = $("#lang_select").val();
+            $.ajax({
+                    url: "<?php echo base_url(); ?>index.php/create/getPartTypes",
+                    type: "POST",
+                    data: "sid="+sd_id,
+                    dataType: "json",
+                    async: true,
+                    catch:false,
+                    
+                    success: function(data){
+                       var toAppend = '';
+                        //if(typeof data === 'object'){
+                            if(lang == 'th'){
+                                $name_lang = 'name_th';
+                            }else{
+                                $name_lang = 'name_eng';
+                            }
+                            for(var i=0;i<data.length;i++){
+                                toAppend += '<option>'+data[i][$name_lang]+'</option>';
+                            }
+                        //}
+                        $('#part_id').append(toAppend);
+
+       
+                    },
+                    error: function(){
+                            alert("Error with response");
                     }        
                    
             });

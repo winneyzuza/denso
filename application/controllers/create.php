@@ -619,8 +619,15 @@ class Create extends CI_Controller {
                 );
                    
             }
-            
             echo json_encode($arr);
+        }
+        
+        public function getPartTypes(){
+            $sid= $this->input->post('sid');
+            $data = $this->create_model->getparttypes($sid);
+            
+            echo json_encode($data);
+            
         }
 }
 
