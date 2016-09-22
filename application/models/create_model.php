@@ -141,12 +141,24 @@ class Create_model extends CI_Model {
 	}
         
         public function getLoginStatus($username){
-                $this->db->select('login_status')->from('user_auth')->where('username',$username);
+                $this->db->select('user_role')->from('user_auth')->where('username',$username);
 
                 $query = $this->db->get();
 
                 if ($query->num_rows() > 0) {
-                    return $query->row()->login_status;
+                    return $query->row()->user_role;
+                }
+                return false;
+        }
+        
+        public function getuserrole($admin)
+	{       
+                $this->db->select('role_id')->from('user_role')->where('name_eng',$admin);
+
+                $query = $this->db->get();
+
+                if ($query->num_rows() > 0) {
+                    return $query->row()->role_id;
                 }
                 return false;
         }

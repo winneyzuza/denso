@@ -10,7 +10,7 @@ class Create extends CI_Controller {
                     redirect('home?next='.urlencode(uri_string()));
 		}
 		$lang = $this->input->get('lang');
-
+                
         if ($lang == "") {
             $lang = $this->session->userdata('lang');
         }
@@ -58,6 +58,7 @@ class Create extends CI_Controller {
 
 	public function index($type="",$ros_no="")
 	{
+        $Admin = 'ServiceAdmin';
         if ($this->input->is_ajax_request()) {
             if ($this->input->post()) {
                 $PostData = $this->input->post();
@@ -203,6 +204,7 @@ class Create extends CI_Controller {
             $data['sd_info'] = $this->create_model->getsdinfo($this->session->userdata('sd_id'));
             // check login status to have permission to change data
             $data['dealer_status'] = $this->create_model->getLoginStatus($this->session->userdata('username'));
+            $data['user_role_admin'] = $this->create_model->getuserrole($Admin);
             // getservicedealers list
             $data['service_dealers'] = $this->create_model->getservicedealers();
             //
@@ -226,6 +228,7 @@ class Create extends CI_Controller {
             $data['car_makers'] = $this->create_model->getcarmakers();
             // check login status to have permission to change data
             $data['dealer_status'] = $this->create_model->getLoginStatus($this->session->userdata('username'));
+            $data['user_role_admin'] = $this->create_model->getuserrole($Admin);
             // getservicedealers list
             $data['service_dealers'] = $this->create_model->getservicedealers();
             //
@@ -269,7 +272,7 @@ class Create extends CI_Controller {
 	public function getdealers()
 	{
 		if ($this->input->is_ajax_request()) {
-			if ($this->session->userdata("logged_in")) {
+                        if ($this->session->userdata("logged_in")) {
 				if ($this->input->post("maker_id")) {
 	                $maker_id = $this->input->post("maker_id");
 	                $dealers = $this->create_model->getdealers($maker_id,$this->session->userdata("sd_id"));
@@ -609,6 +612,9 @@ class Create extends CI_Controller {
         
         public function getAddress(){
             $sid= $this->input->post('sid');
+            if($sid != ''){
+                $this->session->set_userdata('sd_id',$sid);
+            }
             $query = $this->create_model->getAllAdress($sid);
             foreach ($query->result_array() as $row)
             {

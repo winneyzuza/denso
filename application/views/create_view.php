@@ -18,7 +18,7 @@
 		</ul>
 		<div id="page_1" class="frm_part">
 			<?php 
-                            if($dealer_status==='1') {
+                            if($dealer_status===$user_role_admin) {
                                
                         ?>
                         <table>
@@ -429,7 +429,7 @@
                                 $name_lang = 'name_eng';
                             }
                             for(var i=0;i<data.length;i++){
-                                toAppend += '<option>'+data[i][$name_lang]+'</option>';
+                                toAppend += '<option value=' + data[i]['part_id']+ ' data-prefix=' + data[i]['table_prefix'] +  '>'+data[i][$name_lang]+'</option>';
                             }
                         //}
                         $('#part_id').append(toAppend);
