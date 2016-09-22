@@ -42,6 +42,10 @@ div .content {
 	width:250px;
 }
 
+#redisign-form td .column1{
+	width:50px;
+}
+
 div .content {
     border: 1px solid #a1a1a1;
     padding: 10px 40px; 
@@ -58,4 +62,25 @@ div .content {
 	width:260px;
 	height:100px;
 }
+
+.required {
+    color: red;
+    font-size: 15px;
+    margin-left: 5px;
+}
+
+.center-element{
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.width-130 {
+	width:130px;
+}
+
+.width-270 {
+	width:270px;
+}
+
+
 

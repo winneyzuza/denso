@@ -54,6 +54,7 @@ class editProfile extends CI_Controller {
 		$this->lang->load('create',$lang);
 		$this->lang->load('home',$lang);
 		$this->lang->load("edit_profile",$lang);
+		$this->lang->load("form_validation",$lang);
 	
 		$this->load->helper('language');
                 $this->load->library('form_validation');
@@ -143,17 +144,18 @@ class editProfile extends CI_Controller {
 		if($this->input->post()){
 			$this->form_validation->set_error_delimiters('', '\n\\');
 			$this->form_validation->set_rules('sd_id','Service Dealer','trim|max_length[6]');
-			$this->form_validation->set_rules('NameEnglish','Name English','trim|required');
-			$this->form_validation->set_rules('NameThai','Name Thai','trim');
-			$this->form_validation->set_rules('RegionCode','Region','trim|max_length[20]');
-			$this->form_validation->set_rules('Address','Address','trim');
-			$this->form_validation->set_rules('PrimaryPhone','Primary Phone','trim');
-			$this->form_validation->set_rules('Phone','Phone','trim');
+			$this->form_validation->set_rules('NameEnglish',lang('service_dealer_name_en'),'trim|required');
+			$this->form_validation->set_rules('NameThai',lang('service_dealer_name_th'),'trim|required');
+			$this->form_validation->set_rules('RegionCode',lang('service_dealer_region'),'trim|max_length[20]|required');
+			$this->form_validation->set_rules('Address',lang('service_dealer_address'),'trim|required');
+			$this->form_validation->set_rules('PrimaryPhone',lang('service_dealer_phone'),'trim|required');
+			$this->form_validation->set_rules('Phone',lang('service_dealer_mobile'),'trim|min_length[10]|max_length[10]|required');
 			$this->form_validation->set_rules('Fax','Fax','trim');
+			$this->form_validation->set_rules('Owner',lang('service_dealer_onwer'),'trim|required');
+			$this->form_validation->set_rules('Email',lang('service_dealer_email'),'trim|required|valid_email');
 			
 			if($this->form_validation->run() == FALSE){
-				//$this->initHome();
-				//$this->load->view ( 'edit_dealer_info_view' );
+				// No Action
 			}
 			else{
 				$UpdateServiceDealerData = array(

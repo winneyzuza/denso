@@ -1,5 +1,10 @@
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>application/assets/css/home.css">
 <script src="<?php echo base_url(); ?>application/assets/js/jquery-1.11.2.min.js"></script>
+<script>
+	jQuery(document).ready(function() {
+    	jQuery("[required]").after("<span class='required'>*</span>");
+	});
+</script>
 <div class="content" id="redisign-form">
 	<div class="center_table"><h3><?php echo lang('service_dealer_title'); ?></h3></div>       
    	<?PHP
@@ -27,23 +32,23 @@
             <table class="table middle">
             	<tobody>
                 	<tr>
-                    	<td></td>
-                        <td></td>
+                    	<td class="width-130"></td>
+                        <td class="width-270"></td>
                    	</tr>
                 </tbody>
                 <tr>
-                    <td><?php echo lang('service_dealer_name_en'); ?></td>
+                    <td><?php echo lang('service_dealer_name_en'); ?><label required></td>
                     <td><input type="text" name="NameEnglish" value="<?php if(isset($sd_profile_info['name_eng'])) echo $sd_profile_info['name_eng']; ?>" /></td>
                 </tr>
                 <tr>
-                    <td><?php echo lang('service_dealer_name_th'); ?></td>
+                    <td><?php echo lang('service_dealer_name_th'); ?><label required></td>
                     <td><input type="text" name="NameThai" value="<?php if(isset($sd_profile_info['name_th'])) echo $sd_profile_info['name_th']; ?>" /></td>
                 </tr>
                 <tr>
-                    <td><?php echo lang('service_dealer_region'); ?></td>
+                    <td><?php echo lang('service_dealer_region'); ?><label required></td>
                     <td>
                         <select name="RegionCode">
-                            <option value="">Please Select Region</option>
+                            <option value=""><?php echo lang('please_select_option'); ?></option>
                             <?php
                                 if($regions){
                                     foreach ($regions as $value) {
@@ -58,27 +63,27 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><?php echo lang('service_dealer_address'); ?></td>
+                    <td><?php echo lang('service_dealer_address'); ?><label required></td>
                     <td><textarea class="address" name="Address"><?php if(isset($sd_profile_info['address'])) echo $sd_profile_info['address']; ?></textarea></td>
                 </tr>
                 <tr>
-                    <td><?php echo lang('service_dealer_phone'); ?></td>
+                    <td><?php echo lang('service_dealer_phone'); ?><label required></td>
                     <td><input type="text" name="PrimaryPhone" value="<?php if(isset($sd_profile_info['primary_phone'])) echo $sd_profile_info['primary_phone']; ?>" /></td>
                 </tr>
                 <tr>
-                    <td><?php echo lang('service_dealer_mobile'); ?></td>
-                    <td><input type="text" name="Phone" value="<?php if(isset($sd_profile_info['phone'])) echo $sd_profile_info['phone']; ?>" /></td>
+                    <td><?php echo lang('service_dealer_mobile'); ?><label required></td>
+                    <td><input type="text" name="Phone" value="<?php if(isset($sd_profile_info['phone'])) echo $sd_profile_info['phone']; ?>" maxlength="10"/></td>
                 </tr>
                 <tr>
                     <td><?php echo lang('service_dealer_fax'); ?></td>
                     <td><input type="text" name="Fax" value="<?php if(isset($sd_profile_info['fax'])) echo $sd_profile_info['fax']; ?>" /></td>
                 </tr>
                 <tr>
-                    <td><?php echo lang('service_dealer_onwer'); ?></td>
+                    <td><?php echo lang('service_dealer_onwer'); ?><label required></td>
                     <td><input type="text" name="Owner" value="<?php if(isset($sd_profile_info['owner'])) echo $sd_profile_info['owner']; ?>" /></td>
                 </tr>
                 <tr>
-                    <td><?php echo lang('service_dealer_email'); ?></td>
+                    <td><?php echo lang('service_dealer_email'); ?><label required></td>
                     <td><input type="text" name="Email" value="<?php if(isset($sd_profile_info['email'])) echo $sd_profile_info['email']; ?>" /></td>
                 </tr>
             </table>

@@ -19,6 +19,7 @@ $lang['service_dealer_email'] = "อีเมล์";
 $lang['ok_button'] = "ตกลง";
 $lang['reset_button'] = "รีเซต";
 $lang['cancel_button'] = "ยกเลิก";
+$lang['please_select_option'] = "กรุณาเลือก";
 
 /***************************** Notify **********************/
 $lang['update_successful'] = "ข้อมูลถูกอัพเดทเรียบร้อยแล้ว";

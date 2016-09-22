@@ -26,7 +26,7 @@
    
    <form id="pwd" name="pwd" action="<?PHP echo base_url();?>index.php/editProfile/editDealerPwdScreen" method="post">
        <div class="center_table"><h3><?php echo lang('change_password'); ?></h3> </div>
-           <table class="center_table">
+           <table class="center-element">
 
                 <tbody>
 
@@ -63,12 +63,6 @@
         </div>
         
     </form>
-   <style>
-       .required {
-        color: red;
-        font-size: 15px;
-    }
-   </style>
    <script src="<?php echo base_url(); ?>application/assets/js/jquery-1.11.2.min.js"></script>
    <script>
    jQuery(document).ready(function() {

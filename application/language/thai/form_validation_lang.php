@@ -1,13 +1,13 @@
 <?php
 
-$lang['required']			= "The %s field is required.";
+$lang['required']			= "ข้อมูล%s ไม่สามารถระบุเป็นค่าว่างได้";
 $lang['isset']				= "The %s field must have a value.";
-$lang['valid_email']		= "The %s field must contain a valid email address.";
+$lang['valid_email']		= "ข้อมูล%s ไม่ถูกต้องตามกฎการตั้งชื่อที่อยู่อีเมล์";
 $lang['valid_emails']		= "The %s field must contain all valid email addresses.";
 $lang['valid_url']			= "The %s field must contain a valid URL.";
 $lang['valid_ip']			= "The %s field must contain a valid IP.";
-$lang['min_length']			= "The %s field must be at least %s characters in length.";
-$lang['max_length']			= "The %s field can not exceed %s characters in length.";
+$lang['min_length']			= "ข้อมูล%s จะต้องระบุอย่างน้อย %s หลัก";
+$lang['max_length']			= "ข้อมูล%s ไม่สามารถระบุได้เกิน %s หลัก";
 $lang['exact_length']		= "The %s field must be exactly %s characters in length.";
 $lang['alpha']				= "The %s field may only contain alphabetical characters.";
 $lang['alpha_numeric']		= "The %s field may only contain alpha-numeric characters.";
