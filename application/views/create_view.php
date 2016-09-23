@@ -27,8 +27,14 @@
 					<td><?php echo lang('create_service_dealer_name'); ?></td>
                                         <td>
                                             <select name="sd_id" id="sd_id" class="req_field">
-                                                    <option value="" selected="selected">
-                                                        <?php echo "- - - - - - - ". lang('create_service_dealer_name'). " - - - - - - - -" ; ?></option>
+                                                <option value="<?php echo $this->session->userdata('sd_id')?>" selected="selected">
+                                                        <?php if(isset($sd_info[lang('create_sd_name')])){
+                                                            echo $sd_info[lang('create_sd_name')]; 
+                                                        }else{
+                                                            echo "- - - - - - - ". lang('create_service_dealer_name'). " - - - - - - - -" ;
+                                                        } 
+                                                        
+                                                        ?></option>
                                                     <?php foreach ($service_dealers as $key => $row) { ?>
                                                         <option value="<?php echo $row['sd_id'] ?>"><?php echo $row[lang("create_sd_name")] ?></option>
                                                     <?php } ?>
