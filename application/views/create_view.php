@@ -1,4 +1,5 @@
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>application/assets/css/create.css">
+<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>application/assets/css/home.css">
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>application/assets/css/jquery-ui-1.9.2.custom.min.css">
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>application/assets/css/font-awesome.min.css">
 <!-- <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>application/assets/css/jquery-ui.min.css"> -->
@@ -147,7 +148,17 @@
 			<button type="button" class="blue_back button next_tab" style="margin-left: 65%;"><?php echo lang('create_next'); ?></button>
 		</div>
 		<div id="page_2" class="frm_part">
-			<table>
+			<table class="frm_table">
+            	<tobody>
+                	<tr>
+                    	<td class="width-120"></td>
+                        <td class="width-200"></td>
+                        <td class="width-120"></td>
+                        <td class="width-150"></td>
+                        <td class="width-150"></td>                        
+                        <td class="width-200"></td>
+                   	</tr>
+                </tbody>			
 				<!-- <tr class="empty_row"></tr>
 				<tr>
 					<td><?php echo lang('create_car_maker'); ?></td>
@@ -171,16 +182,22 @@
 						</select>
 					</td>
 					<td><?php echo lang('create_frame_number'); ?><span class="required">*</span></td>
-                                        <td style="white-space: nowrap;">
-                                            <input type="text" name="frame_no" placeholder="<?php echo lang('create_frame_number'); ?>" class="req_field">
-                                            <label><input type="checkbox" id="frame_indiscernible"/><?php echo lang('create_indiscernible'); ?></label>
-                                        </td>
+					<td style="white-space: nowrap;">
+						<input type="text" name="frame_no" placeholder="<?php echo lang('create_frame_number'); ?>" class="req_field">
+					</td>
 					<td><?php echo lang('create_engine_number'); ?><span class="required">*</span></td>
 					<td style="white-space: nowrap;">
-                                            <input type="text" name="engine_no" placeholder="<?php echo lang('create_engine_number'); ?>" class="req_field">
-                                            <label><input type="checkbox" id="engine_indiscernible"/><?php echo lang('create_indiscernible'); ?></label>
-                                        </td>
+                    	<input type="text" name="engine_no" placeholder="<?php echo lang('create_engine_number'); ?>" class="req_field">
+                  	</td>
 				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+               		<td><label><input type="checkbox" id="frame_indiscernible"/><?php echo lang('create_indiscernible'); ?></label></td>
+               		<td></td>
+               		<td><label><input type="checkbox" id="engine_indiscernible"/><?php echo lang('create_indiscernible'); ?></label></td>
+				</tr>				
 				<tr class="empty_row"></tr>
 				<tr>
 					<td><?php echo lang('create_engine_model'); ?><span class="required">*</span></td>
@@ -197,11 +214,21 @@
 				<tr class="empty_row"></tr>
 				<tr>
 					<td><?php echo lang('create_delivery_date'); ?><span class="required">*</span></td>
-					<td><input type="text" name="delivery_date" placeholder="<?php echo lang('create_delivery_date'); ?>" class="date req_field" readonly="readonly"></td>
+					<td>
+						<input type="text" name="delivery_date" placeholder="<?php echo lang('create_delivery_date'); ?>" class="date req_field" readonly="readonly">
+					</td>
 					<td><?php echo lang('create_repair_date'); ?><span class="required">*</span></td>
 					<td><input type="text" name="repair_date" placeholder="<?php echo lang('create_repair_date'); ?>" class="date req_field" readonly="readonly"></td>
 					<td><?php echo lang('create_mileage'); ?><span class="required">*</span></td>
 					<td><input type="text" name="mileage" placeholder="<?php echo lang('create_mileage'); ?>" class="req_field"></td>
+				</tr>
+				<tr>
+					<td></td>
+               		<td><label><input type="checkbox" id="chkbox_delivery_date"/><?php echo lang('create_indiscernible'); ?></label></td>
+               		<td></td>
+               		<td></td>
+               		<td></td>
+               		<td><label><input type="checkbox" id="chkbox_mileage"/><?php echo lang('create_indiscernible'); ?></label></td>
 				</tr>
                 <!--For IE8 bug-->
                 <tr>
@@ -210,12 +237,10 @@
 				<tr class="empty_row"></tr>
 				<tr>
 					<td><?php echo lang('create_warranty_condition'); ?></td>
-					<td>
+					<td colspan="3">
 						<label><input type="radio" name="warranty" value="in" disabled> <?php echo lang('create_warranty_in'); ?></input></label>
 						<label><input type="radio" name="warranty" value="out" disabled> <?php echo lang('create_warranty_out'); ?></input></label>
 					</td>
-					<td></td>
-					<td></td>
 					<td colspan="2"><?php //echo lang('create_status_of_ros'); ?></td>
 				</tr>
 				<tr class="empty_row"></tr>
@@ -469,10 +494,22 @@
                 $("#engine_indiscernible").prop("checked", true);
                 $("input[name='engine_no']").prop("readonly", true);
             }
+
+            if($("input[name='delivery_date']").val() == 'XXXXX'){
+                $("#chkbox_delivery_date").prop("checked", true);
+                $("input[name='delivery_date']").prop("readonly", true);
+            }
+
+            if($("input[name='mileage']").val() == 'XXXXX'){
+                $("#chkbox_mileage").prop("checked", true);
+                $("input[name='mileage']").prop("readonly", true);
+            }
         }
         
         $("#frame_indiscernible").on("change",frame_change);
         $("#engine_indiscernible").on("change",frame_change);
+        $("#chkbox_delivery_date").on("change",frame_change);
+        $("#chkbox_mileage").on("change",frame_change);
         
         function frame_change(){
             if($("#frame_indiscernible").is(':checked')){
@@ -481,6 +518,9 @@
             }
             else{
                 $("input[name='frame_no']").prop("readonly", false);
+                if($("input[name='frame_no']").val() == 'XXXXX'){
+                	$("input[name='frame_no']").val('');
+                }
             }
             if($("#engine_indiscernible").is(':checked')){
                 $("input[name='engine_no']").val('XXXXX');
@@ -488,7 +528,36 @@
             }
             else{
                 $("input[name='engine_no']").prop("readonly", false);
+                if($("input[name='engine_no']").val() == 'XXXXX'){
+                	$("input[name='engine_no']").val('');
+                }
             }
+
+            if($("#chkbox_delivery_date").is(':checked')){
+                $("input[name='delivery_date']").val('XXXXX');
+                delivery_date_change();
+                $("input[name='delivery_date']").prop("disabled", true);
+            }
+            else{
+                $("input[name='delivery_date']").prop("disabled", false);
+                if($("input[name='delivery_date']").val() == 'XXXXX'){
+                	$("input[name='delivery_date']").val('');
+                }
+                delivery_date_change();
+            }
+
+            if($("#chkbox_mileage").is(':checked')){
+                $("input[name='mileage']").val('XXXXX');
+                $("input[name='mileage']").prop("readonly", true);
+            }
+            else{
+                $("input[name='mileage']").prop("readonly", false);
+                if($("input[name='mileage']").val() == 'XXXXX'){
+                	$("input[name='mileage']").val('');
+                }
+            }
+
+            mileage_change();
         }
         
         $(document).on("change","input[name='car_condition']",radio_change);
@@ -634,6 +703,14 @@
                 field_value = date;
             }
 			warranty_info[field_name] = field_value;
+			getwarranty();
+		}
+
+		$(document).on("change blur","input[name='delivery_date']",delivery_date_change);
+
+
+		function delivery_date_change(){
+			warranty_info["delivery_date"] = $("input[name='delivery_date']").val();
 			getwarranty();
 		}
 

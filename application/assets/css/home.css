@@ -74,8 +74,20 @@ div .content {
 	margin-right: auto;
 }
 
+.width-120 {
+	width:120px;
+}
+
 .width-130 {
 	width:130px;
+}
+
+.width-150 {
+	width:150px;
+}
+
+.width-200 {
+	width:200px;
 }
 
 .width-270 {

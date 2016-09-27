@@ -16,8 +16,9 @@ input,select{
 }
 
 table input[type="text"]{
-	width: 60%;
+	width: 80%;
 }
+
 .ui-autocomplete{
 	overflow: scroll;
 	height: 200px;
