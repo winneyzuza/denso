@@ -77,9 +77,9 @@ class editProfile extends CI_Controller {
                 $this->load->library('form_validation');
                 
                 $this->form_validation->set_error_delimiters('', '\n\\');
-                $this->form_validation->set_rules('opassword', 'Old Password', 'required|trim|xss_clean');
-                $this->form_validation->set_rules('npassword', 'New Password', 'required|trim');
-                $this->form_validation->set_rules('cpassword', 'Confirm Password', 'required|trim|matches[npassword]');
+                $this->form_validation->set_rules('opassword', lang('password_original'), 'required|trim|xss_clean');
+                $this->form_validation->set_rules('npassword', lang('password_new'), 'required|trim');
+                $this->form_validation->set_rules('cpassword', lang('password_new_confirm'), 'required|trim|matches[npassword]');
                 
                 if ($this->form_validation->run() == FALSE) {
                     $this->load->view ('edit_password_view');
@@ -94,7 +94,6 @@ class editProfile extends CI_Controller {
             $username = $this->session->userdata('username');
             $this->load->model('edit_profile_model');
             $query = $this->edit_profile_model->getUser($username);
-            //$query = $this->db->query("select * from user_auth where username='".$username."'");
             foreach ($query->result() as $my_info) {
 
                 $db_password = $my_info->password;
@@ -105,11 +104,7 @@ class editProfile extends CI_Controller {
             }
 
             if ((hash("sha256", $input_pwd . $db_salt) == $db_password) && ($this->input->post('npassword') != '') && ($this->input->post('cpassword') != '')) {
-                //if ($db_password == $input_pwd) {
-                //$fixed_pw = md5($this->input->post('npassword'));
                 $fixed_pw = hash("sha256", $this->input->post('npassword') . $db_salt);
-                //$fixed_pw = $this->input->post('npassword');
-                //$update = $this->db->query("Update user_auth SET password='".$fixed_pw."' WHERE id=$db_id")or die(mysql_error());
                 if($this->edit_profile_model->updateUserPwd($fixed_pw,$db_id)){
                     $this->session->set_userdata('status','Password updated successfully');
                 }else{
