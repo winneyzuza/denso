@@ -77,6 +77,7 @@ class Create extends CI_Controller {
                 unset($PostData['draft']);
                 unset($PostData['action']);
                 unset($PostData['maker_name']);
+                unset($PostData['sd_id']);
                 // if (isset($PostData['maker_name'])) {
                 // 	$maker_name = $PostData['maker_name'];
                 // 	echo "UNSETTING IT";
@@ -631,9 +632,7 @@ class Create extends CI_Controller {
         public function getPartTypes(){
             $sid= $this->input->post('sid');
             $data = $this->create_model->getparttypes($sid);
-            
             echo json_encode($data);
-            
         }
 }
 
