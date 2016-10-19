@@ -2,9 +2,9 @@
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>application/assets/css/home.css">
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>application/assets/css/jquery-ui-1.9.2.custom.min.css">
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>application/assets/css/font-awesome.min.css">
-<!-- <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>application/assets/css/jquery-ui.min.css"> -->
-<!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css"> -->
-
+<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>application/assets/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>application/assets/css/select2.min.css">
+    
 
 <form method="POST" id="create_frm">
         <div id="tabs">
@@ -17,7 +17,7 @@
 			<!-- <li><a href="#page_2"><?php //echo lang('create_menu_car_prob'); ?></a></li> -->
 			<!-- <li><a href="#page_3"><?php echo lang('create_menu_part_exchange'); ?></a></li> -->
 		</ul>
-		<div id="page_1" class="frm_part">
+                 <div id="page_1" class="frm_part">
 			<?php 
                             if($dealer_status===$user_role_admin) {
                                
@@ -27,7 +27,7 @@
 				<tr>
 					<td><?php echo lang('create_service_dealer_name'); ?></td>
                                         <td>
-                                            <select name="sd_id" id="sd_id" class="req_field">
+                                            <select name="sd_id" id="sd_id" class="select2">
                                                 <option value="<?php echo $this->session->userdata('sd_id')?>" selected="selected">
                                                         <?php if(isset($sd_info[lang('create_sd_name')])){
                                                             echo $sd_info[lang('create_sd_name')]; 
@@ -279,11 +279,15 @@
 <script src="<?php echo base_url(); ?>application/assets/js/jquery-ui-1.9.2.custom.min.js"></script>
 <script src="<?php echo base_url(); ?>application/assets/js/jquery.datetimepicker.js"></script>
 <script src="<?php echo base_url(); ?>application/assets/js/jquery.deserialize.js"></script>
+<script src="<?php echo base_url(); ?>application/assets/js/bootstrap.min.js"></script>
+<script src="<?php echo base_url(); ?>application/assets/js/select2.min.js"></script>
+
 <!--script src="<?php echo base_url(); ?>application/assets/js/jquery-ui.min.js"></script-->
 <!--<script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>-->
 <script>
 	$(document).ready(function(){
+        $(".select2").select2();
         // SHOW SOME FANCY LOADING
 	var warranty_info = {};
         var frontd = '<option value="<?PHP echo $this->session->userdata("sd_id"); ?>"><?PHP if(isset($sd_info[lang('create_sd_name')])) echo $sd_info[lang('create_sd_name')]; ?></option>';
@@ -919,9 +923,9 @@
 					}
 				},
 				error: function(one, two, three){
-					//console.log(one);
-					//console.log(two);
-					//console.log(three);
+					console.log(one);
+					console.log(two);
+					console.log(three);
 					alert("Can't contact the server right now.");
 				},
 				complete: function(){
