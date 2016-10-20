@@ -68,6 +68,11 @@ class Create extends CI_Controller {
                         $PostData[$key] = $PostData[$key]==""?null:$PostData[$key];
                     }
                 }
+                
+                if(!isset($PostData['part_quantity'])){
+                	$PostData['part_quantity'] = '1';
+                }
+                
                 if(isset($PostData['delivery_date']))
                     $PostData['delivery_date'] = date("Y-m-d", strtotime($PostData['delivery_date']));
                 if(isset($PostData['repair_date']))
