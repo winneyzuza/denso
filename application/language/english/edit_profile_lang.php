@@ -20,6 +20,7 @@ $lang['ok_button'] = "OK";
 $lang['reset_button'] = "Reset";
 $lang['cancel_button'] = "Cancel";
 $lang['please_select_option'] = "Please Select";
+$lang['region_name'] = "region_name_eng";
 
 
 /***************************** Notify **********************/

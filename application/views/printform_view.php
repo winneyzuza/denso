@@ -62,10 +62,8 @@
         <tr>
             <td>ที่อยู่</td>
             <td colspan="3" class="bordersolidright"><?php echo isset($sd_info['address'])?$sd_info['address']:'__________' ?></td>
-            <td>สาขา</td>
-            <td>__________</td>
-            <td>จังหวัด</td>
-            <td><?php echo isset($dealer_info['location_th'])?$dealer_info['location_th']:'__________' ?></td>
+            <td>ที่อยู่</td>
+            <td colspan="3" class="bordersolidright"><?php echo isset($dealer_info['address'])?$dealer_info['address']:'__________' ?></td>
         </tr>
         <tr>
             <td>โทร</td>
@@ -414,24 +412,24 @@
             <td></td>
             <td colspan="2"></td>
             <td></td>
-            <td class="bordersolidleft">____________________</td>
-            <td class="bordersolidright">(__________)</td>
+            <td class="bordersolidleft"><?php echo isset($part_exchange_pn)?$part_exchange_pn:'____________________' ?></td>
+            <td class="bordersolidright">(<?php echo isset($new_sn_1)?$new_sn_1:'__________' ?>)</td>            
         </tr>
         <tr class="center">
             <td colspan="2"></td>
             <td></td>
             <td colspan="2"></td>
             <td></td>
-            <td class="bordersolidleft">____________________</td>
-            <td class="bordersolidright">(__________)</td>
+            <td class="bordersolidleft"><?php echo isset($part_exchange_pn)?$part_exchange_pn:'____________________' ?></td>
+            <td class="bordersolidright">(<?php echo isset($new_sn_2)?$new_sn_2:'__________' ?>)</td>  
         </tr>
         <tr class="center">
             <td colspan="2"></td>
             <td></td>
             <td colspan="2"></td>
             <td></td>
-            <td class="bordersolidleft">____________________</td>
-            <td class="bordersolidright">(__________)</td>
+            <td class="bordersolidleft"><?php echo isset($part_exchange_pn)?$part_exchange_pn:'____________________' ?></td>
+            <td class="bordersolidright">(<?php echo isset($new_sn_3)?$new_sn_3:'__________' ?>)</td>  
         </tr>
         <tr>
             <td class="alignright bordersolidtop bordersolidleft">อะไหล่จากศูนย์บริการเด็นโซ่ -></td>
@@ -440,22 +438,22 @@
             <td class="alignright bordersolidtop bordersolidleft">อะไหล่จากตัวแทนฯ -></td>
             <td class="bordersolidtop bordersolidright">ศูนย์บริการเด็นโซ่</td>
             <td rowspan="3"><=</td>
-            <td class="alignright bordersolidleft center">____________________</td>
-            <td class="bordersolidright center">(__________)</td>
+            <td class="alignright bordersolidleft center"><?php echo isset($part_exchange_pn)?$part_exchange_pn:'____________________' ?></td>
+            <td class="bordersolidright center">(<?php echo isset($new_sn_4)?$new_sn_4:'__________' ?>)</td>
         </tr>
         <tr>
             <td colspan="2" class="bordersolidleft bordersolidtop bordersolidright center">วันที่ รับอะไหล่จากศูนย์บริการเด็นโซ่</td>
             <td colspan="2" class="bordersolidleft bordersolidtop bordersolidright center">วันที่ รับอะไหล่จากตัวแทน</td>
-            <td class="alignright bordersolidleft center">____________________</td>
-            <td class="bordersolidright center">(__________)</td>
+            <td class="alignright bordersolidleft center"><?php echo isset($part_exchange_pn)?$part_exchange_pn:'____________________' ?></td>
+            <td class="bordersolidright center">(<?php echo isset($new_sn_5)?$new_sn_5:'__________' ?>)</td>
         </tr>
         <tr>
             <td class="center bordersolidleft bordersolidbottom"><?php echo isset($Complete)?date('d/m/Y', strtotime($Complete)):'__________' ?></td>
             <td class="bordersolidbottom bordersolidright"><?php echo isset($Complete)?date('H:i', strtotime($Complete)):'__________' ?></td>
             <td class="center bordersolidleft bordersolidbottom"><?php echo isset($CoreReturn)?date('d/m/Y', strtotime($CoreReturn)):'__________' ?></td>
             <td class="bordersolidbottom bordersolidright"><?php echo isset($CoreReturn)?date('H:i', strtotime($CoreReturn)):'__________' ?></td>
-            <td class="alignright bordersolidleft center bordersolidbottom">____________________</td>
-            <td class="bordersolidright center bordersolidbottom">(__________)</td>
+            <td class="alignright bordersolidleft center bordersolidbottom"><?php echo isset($part_exchange_pn)?$part_exchange_pn:'____________________' ?></td>
+            <td class="bordersolidright center bordersolidbottom">(<?php echo isset($new_sn_6)?$new_sn_6:'__________' ?>)</td>
         </tr>
     </table>
 </div>

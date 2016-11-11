@@ -2,7 +2,6 @@
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>application/assets/css/home.css">
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>application/assets/css/jquery-ui-1.9.2.custom.min.css">
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>application/assets/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>application/assets/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>application/assets/css/select2.min.css">
     
 
@@ -11,6 +10,7 @@
 	<div id="save_draft" title="<?php echo lang('create_save_draft'); ?>" data-action="<?php echo (isset($ros_info['ros_no']) AND $ros_info['status']=='Draft')?('update'):('add'); ?>"></div>
 	<div id="del_draft" title="<?php echo lang('create_delete_draft'); ?>" data-rosno="<?php echo (isset($ros_info['ros_no']) AND $ros_info['status']=='Draft')?($ros_info['ros_no']):('0'); ?>"></div>
         <div id="printform"></div>
+        <div id="searchform"></div>
 		<ul id="tabs_list">
 			<li><a href="#page_1"><?php echo lang('create_menu_dealer_info'); ?></a></li>
 			<li><a href="#page_2"><?php echo lang('create_menu_car_info'); ?></a></li>
@@ -934,7 +934,12 @@
 				}
 			});
 		});
-                
+
+        $('#searchform').on('click',function(){
+            alert('Opening new window to search function.');
+            window.open("<?php echo base_url(); ?>index.php/create/searchform");
+		});
+		          
             $('#printform').on('click',function(){
             alert('Opening new window to print!');
 			var form = $("#create_frm");
@@ -1144,7 +1149,7 @@
 		}
                 
     	$(document).on("change",'select[name="part_failure_pn"]',failure_change);
-
+    	
 		function failure_change(){
             var value = $('select[name="part_failure_pn"] option:selected').val();
 			if (value!="") {

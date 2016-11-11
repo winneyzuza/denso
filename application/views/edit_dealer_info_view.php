@@ -53,9 +53,9 @@
                                 if($regions){
                                     foreach ($regions as $value) {
                                         if($value['region_code'] == $sd_profile_info['region_code'])
-                                            echo "<option value='".$value['region_code']."' ".set_select('$regions', $value['region_code'])." selected>".$value['region_name_th']."</option>";
+                                            echo "<option value='".$value['region_code']."' ".set_select('$regions', $value['region_code'])." selected>".$value[lang('region_name')]."</option>";
                                         else
-                                            echo "<option value='".$value['region_code']."' ".set_select('$regions', $value['region_code']).">".$value['region_name_th']."</option>";
+                                            echo "<option value='".$value['region_code']."' ".set_select('$regions', $value['region_code']).">".$value[lang('region_name')]."</option>";
                                     }
                                 }
                             ?>
@@ -68,11 +68,11 @@
                 </tr>
                 <tr>
                     <td><?php echo lang('service_dealer_phone'); ?><label required></td>
-                    <td><input type="text" name="PrimaryPhone" value="<?php if(isset($sd_profile_info['primary_phone'])) echo $sd_profile_info['primary_phone']; ?>" /></td>
+                    <td><input type="text" name="PrimaryPhone" value="<?php if(isset($sd_profile_info['primary_phone'])) echo $sd_profile_info['primary_phone']; ?>" maxlength="20"/></td>
                 </tr>
                 <tr>
                     <td><?php echo lang('service_dealer_mobile'); ?><label required></td>
-                    <td><input type="text" name="Phone" value="<?php if(isset($sd_profile_info['phone'])) echo $sd_profile_info['phone']; ?>" maxlength="10"/></td>
+                    <td><input type="text" name="Phone" value="<?php if(isset($sd_profile_info['phone'])) echo $sd_profile_info['phone']; ?>" /></td>
                 </tr>
                 <tr>
                     <td><?php echo lang('service_dealer_fax'); ?></td>
@@ -83,7 +83,7 @@
                     <td><input type="text" name="Owner" value="<?php if(isset($sd_profile_info['owner'])) echo $sd_profile_info['owner']; ?>" /></td>
                 </tr>
                 <tr>
-                    <td><?php echo lang('service_dealer_email'); ?><label required></td>
+                    <td><?php echo lang('service_dealer_email'); ?><label></td>
                     <td><input type="text" name="Email" value="<?php if(isset($sd_profile_info['email'])) echo $sd_profile_info['email']; ?>" /></td>
                 </tr>
             </table>

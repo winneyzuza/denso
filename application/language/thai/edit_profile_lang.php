@@ -20,6 +20,7 @@ $lang['ok_button'] = "ตกลง";
 $lang['reset_button'] = "รีเซต";
 $lang['cancel_button'] = "ยกเลิก";
 $lang['please_select_option'] = "กรุณาเลือก";
+$lang['region_name'] = "region_name_th";
 
 /***************************** Notify **********************/
 $lang['update_successful'] = "ข้อมูลถูกอัพเดทเรียบร้อยแล้ว";

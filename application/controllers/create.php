@@ -54,6 +54,7 @@ class Create extends CI_Controller {
 		$this->load->helper("email");
 
 		$this->load->model('create_model');
+		$this->load->library('pagination');
 	}
 
 	public function index($type="",$ros_no="")
@@ -497,7 +498,11 @@ class Create extends CI_Controller {
 
 		echo json_encode($return);
 	}
-        
+
+	public function searchform(){
+			$this->load->view('search_view');
+	}
+	
     public function printform(){
         $this->load->model('create_model');
         
@@ -510,6 +515,34 @@ class Create extends CI_Controller {
             foreach ($statuslog as $key => $value) {
                 $data[str_replace(' ', '', $value['status'])] = $value['created_time'];
             }
+        }
+        
+        if($this->input->get('part_exchange_pn')){
+        	$data['part_exchange_pn'] = $this->input->get('part_exchange_pn');
+        }
+        
+        if($this->input->get('new_sn_1')){
+        	$data['new_sn_1'] = $this->input->get('new_sn_1');
+        }
+        
+        if($this->input->get('new_sn_2')){
+        	$data['new_sn_2'] = $this->input->get('new_sn_2');
+        }
+        
+        if($this->input->get('new_sn_3')){
+        	$data['new_sn_3'] = $this->input->get('new_sn_3');
+        }
+        
+        if($this->input->get('new_sn_4')){
+        	$data['new_sn_4'] = $this->input->get('new_sn_4');
+        }
+        
+        if($this->input->get('new_sn_5')){
+        	$data['new_sn_5'] = $this->input->get('new_sn_5');
+        }
+        
+        if($this->input->get('new_sn_6')){
+        	$data['new_sn_6'] = $this->input->get('new_sn_6');
         }
         // for loading form of each part 
         // 1 & 2 pump and injector use same form (printform_view.php) ,
@@ -638,6 +671,52 @@ class Create extends CI_Controller {
             $sid= $this->input->post('sid');
             $data = $this->create_model->getparttypes($sid);
             echo json_encode($data);
+        }
+        
+        public function doSearchAction(){
+        	
+        	$maker_id = $this->input->post('CarMaker');
+        	$car_model = $this->input->post('CarModel');
+        	$status = "";
+        	$filter = "TOYOTA";
+        	//$return = $this->create_model->getrosfiltered($this->session->userdata("sd_id"),$status,0, 10, $filter);
+        		$query = "select distinct(model.car_model),model.maker_id,model.engine_model,model.car_maker_PN,model.exchange_PN from car_makers c
+        					left join (
+		        				select * from pump_parts pp
+		        				union all
+		        				select * from compressor_parts cp
+		        				union all
+		        				select * from injector_parts
+		        				union all
+		        				select * from alternator_parts) model
+		        			on c.maker_id = model.maker_id
+		        		where c.maker_id = '".$maker_id."'"." order by model.car_model asc";
+        		
+        		
+        	$return['records'] =  $this->db->query($query)->result_array();
+        	$return['total_rows'] = $this->db->query($query)->num_rows();
+        
+        	$data['records'] = $return['records'];
+        	$data['total_rows'] = $return['total_rows'];
+        	
+        	$total_rows = $return['total_rows'];
+
+        	//config the pagination library.
+        	$config['base_url'] = base_url().'index.php/create';
+        	$config['total_rows'] = $total_rows;
+        	// $config['use_page_numbers'] = TRUE;
+        	$config['per_page'] = 30;
+        	$config['page_query_string'] = TRUE;
+        	$config['first_link'] = 'First';
+        	$config['last_link'] = 'Last';
+        	$config['query_string_segment'] = 'record';
+        	
+        	//Initialize the pagination library with above configurations.
+        	$this->pagination->initialize($config);
+        	
+        	//$data['table_makers'] = $this->create_model->getallmakers();        	
+        	$this->load->view('search_view',$data);
+        	
         }
 }
 

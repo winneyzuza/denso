@@ -144,10 +144,10 @@ class editProfile extends CI_Controller {
 			$this->form_validation->set_rules('RegionCode',lang('service_dealer_region'),'trim|max_length[20]|required');
 			$this->form_validation->set_rules('Address',lang('service_dealer_address'),'trim|required');
 			$this->form_validation->set_rules('PrimaryPhone',lang('service_dealer_phone'),'trim|required');
-			$this->form_validation->set_rules('Phone',lang('service_dealer_mobile'),'trim|min_length[10]|max_length[10]|required');
+			$this->form_validation->set_rules('Phone',lang('service_dealer_mobile'),'trim|required');
 			$this->form_validation->set_rules('Fax','Fax','trim');
 			$this->form_validation->set_rules('Owner',lang('service_dealer_onwer'),'trim|required');
-			$this->form_validation->set_rules('Email',lang('service_dealer_email'),'trim|required|valid_email');
+			$this->form_validation->set_rules('Email',lang('service_dealer_email'),'trim|valid_email');
 			
 			if($this->form_validation->run() == FALSE){
 				// No Action

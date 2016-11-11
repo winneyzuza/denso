@@ -129,6 +129,22 @@ td{
     cursor: pointer;
 }
 
+#searchform:hover{
+    background-color: orange;
+}
+
+#searchform{
+    position: absolute;
+    height: 43px;
+    z-index: 2;
+    width: 43px;
+    right: 160px;
+    background-image: url('../images/search.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
 #printform:hover{
     background-color: orange;
 }
@@ -169,4 +185,8 @@ td{
 	/*top:40%;*/
 	width: 20%;
 	height: 20%;
+}
+
+.width_210 {
+	width: 500 px;
 }

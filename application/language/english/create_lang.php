@@ -113,3 +113,14 @@ $lang['create_alternator_exchange'] = "Alternator Exchange";
 
 /**********************GENERAL VARIABLES**************************/
 $lang['create_general_select'] = "Select";
+
+
+/**********************SEARCH SCREEN VARIABLES**************************/
+$lang['car_maker'] = "Car Maker";
+$lang['model_name'] = "Model Name";
+$lang['model_code'] = "Model Code";
+$lang['car_maker_pn'] = "Car Maker Part. No";
+$lang['denso_part_no'] = "DENSO Part. No";
+$lang['keywords'] = "Keyword";
+$lang['search'] = "Search";
+$lang['clear'] = "Clear";

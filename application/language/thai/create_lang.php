@@ -97,7 +97,7 @@ $lang['create_failure'] = "อะไหล่ที่เสีย";
 $lang['create_failure_sn'] = "Failure S/N";
 $lang['create_new_sn'] = "อะไหล่ใหม่";
 $lang['create_exchange'] = "อะไหล่ที่ต้องการแลกเปลี่ยน";
-$lang['create_pn'] = "หลายเลขอะไหล่";
+$lang['create_pn'] = "หมายเลขอะไหล่";
 $lang['create_sn'] = "หมายเลขการผลิต";
 $lang['create_remark'] = "หมายเหตุ";
 
@@ -113,3 +113,14 @@ $lang['create_alternator_exchange'] = "เปลี่ยนอัลเทอ�
 
 /**********************GENERAL VARIABLES**************************/
 $lang['create_general_select'] = "Select";
+
+
+/**********************SEARCH SCREEN VARIABLES**************************/
+$lang['car_maker'] = "Car Maker";
+$lang['model_name'] = "Model Name";
+$lang['model_code'] = "Model Code";
+$lang['car_maker_pn'] = "Car Maker Part. No";
+$lang['denso_part_no'] = "DENSO Part. No";
+$lang['keywords'] = "Keyword";
+$lang['search'] = "Search";
+$lang['clear'] = "Clear";

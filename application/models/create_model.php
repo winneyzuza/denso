@@ -228,7 +228,7 @@ class Create_model extends CI_Model {
 	}
         
 	public function getdealerinfo($dealerid){
-            $select = ("name_th, location_th, primary_phone, fax");
+            $select = ("name_th, location_th, address, primary_phone, fax");
 //	    $this->db->select(lang("create_dealer_column").',' . lang("create_dealer_location") .', primary_phone, fax');
             $this->db->select($select);
 	    if($result = $this->db->get_where('dealer', array('dealer_id' => $dealerid)))
@@ -287,6 +287,60 @@ class Create_model extends CI_Model {
 	{
 		$result = $this->db->select(lang('create_dealer_location'))->where("dealer_id",$dealer_id)->get("dealer")->row_array();
 		return $result[lang('create_dealer_location')];
+	}
+	
+	public function getrosfiltered($sd_id,$status,$offset, $per_page, $filter)
+	{
+		if ($status == "all") {
+			$status_query = " WHERE status != 'Draft' ";
+		} else {
+			$status_query = " WHERE status = '$status' ";
+		}
+		$status_query .= " AND ros_form.created_by = '$sd_id'";
+		if(isset($filter['CarMaker']))
+			$status_query .= " AND car_makers.".lang("manage_maker_name")." = '".$filter['CarMaker']."'";
+		if(isset($filter['DealerName']))
+			$status_query .= " AND dealer.".lang("manage_dealer_name")." LIKE '%".$filter['DealerName']."%'";
+		if(isset($filter['SDName']))
+			$status_query .= " AND service_dealer.".lang("manage_sd_name")." LIKE '%".$filter['SDName']."%'";
+		if(isset($filter['RosNo']))
+			$status_query .= " AND ros_no LIKE '%".$filter['RosNo']."%'";
+		if(isset($filter['CreateFrom']))
+			$status_query .= " AND created_time >= '".$filter['CreateFrom']."'";
+		if(isset($filter['CreateTo']))
+			$status_query .= " AND created_time <= '".$filter['CreateTo']." 23:59:59'";
+		if(isset($filter['RepairFrom']))
+			$status_query .= " AND repair_date >= '".$filter['RepairFrom']."'";
+		if(isset($filter['RepairTo']))
+			$status_query .= " AND repair_date <= '".$filter['RepairTo']."'";
+		if(isset($filter['DealerKey']))
+			$status_query .= " AND (dealer.name_eng LIKE '%".$filter['DealerKey']."%' OR dealer.name_th LIKE '%".$filter['DealerKey']."%')";
+	
+		// $select = "created_time,repair_date,dealer.".lang('manage_dealer_name')." AS dealer_".lang('manage_dealer_name').",CONCAT('<a href=''manage/ros/',ros_no,'''>',ros_no,'</a>') AS ros_no,ros_no AS raw_ros,service_dealer.".lang("manage_sd_name").",warranty, car_model, injector, car_makers.".lang("manage_maker_name").", ros_form.failure_pn AS part_no, ros_form.inj_failure_pn AS inj_part_no, ros_form.status_approve_date AS ApproveDate, ros_form.status_delivery_date AS Delivery, ros_form.status_core_return_date AS Core, status";
+		$select = "created_time,repair_date,dealer.".lang('manage_dealer_name')." AS dealer_".lang('manage_dealer_name').",CONCAT('<a href=''manage/ros/',ros_no,'''>',ros_no,'</a>') AS ros_no,ros_no AS raw_ros,service_dealer.".lang("manage_sd_name")." AS service_dealer,warranty, car_model, part_types.".lang("manage_part_type_column").", car_makers.".lang("manage_maker_name").", ros_form.part_failure_pn AS part_no, ros_form.status_approve_date AS ApproveDate, ros_form.status_delivery_date AS Delivery, ros_form.status_core_return_date AS Core, status";
+		$additional = " LIMIT $per_page OFFSET $offset";
+		$query = "
+		SELECT $select FROM ros_form
+		LEFT JOIN service_dealer ON service_dealer.sd_id = ros_form.created_by
+		LEFT JOIN dealer ON dealer.dealer_id = ros_form.dealer_id
+		LEFT JOIN car_makers ON car_makers.maker_id = ros_form.maker_id
+		LEFT JOIN part_types ON part_types.part_id = ros_form.part_id -- SHOULD BE INNER JOIN
+		$status_query
+		ORDER BY created_time desc
+		";
+		$result = $this->db->query($query.$additional);
+	
+		if ($result->num_rows() >= 1) {
+			$return['records'] = $result->result_array();
+			$return['total_rows'] = $this->db->query($query)->num_rows();
+		}
+	
+	
+		if (!empty($return)) {
+			return $return;
+		} else{
+			return FALSE;
+		}
 	}
 
 }
