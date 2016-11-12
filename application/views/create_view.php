@@ -1132,6 +1132,7 @@
 						//console.log(data);
 						if (data.code == "200") {
                             $('select[name="part_failure_pn"]').html(data.message);
+                            $('select[name="part_failure_pn_inj"]').html(data.message);
 						} else{
 							$('select[name="part_failure_pn"]').html("<option value=''>Select</option>");
 						}
@@ -1166,6 +1167,40 @@
                             $("#part_code").html("<input type='hidden' name='part_code' value='"+data.part_code+"' />");
 						} else{
 							$('input[name="part_exchange_pn"]').val('');
+							$("#part_code").html("");
+							alert(data.message);
+						}
+					},
+					error: function(one, two, three){
+						//console.log(one);
+						//console.log(two);
+						//console.log(three);
+					},
+					complete: function(){
+						// $(".part_type").removeAttr('disabled');
+					}
+				});
+			}
+		}
+                
+                $(document).on("change",'select[name="part_failure_pn_inj"]',failure_change1);
+    	
+		function failure_change1(){
+            var value = $('select[name="part_failure_pn_inj"] option:selected').val();
+			if (value!="") {
+				$.ajax({
+					url: "<?php echo base_url(); ?>index.php/create/getexchangemodels",
+					type: "POST",
+					data: "maker_id="+($("#maker option:selected").val())+"&part_type="+($(".part_type").find(":selected").data("prefix"))+"&car_model="+$('select[name="car_model"] option:selected').val()+"&engine_model="+$('select[name="engine_model"] option:selected').val()+"&car_maker_PN="+value,
+					dataType: "json",
+					async: false,
+					success: function(data){
+						//console.log(data);
+						if (data.code == "200") {
+                            $("input[name='part_exchange_pn_inj']").val(data.message);
+                            $("#part_code").html("<input type='hidden' name='part_code' value='"+data.part_code+"' />");
+						} else{
+							$('input[name="part_exchange_pn_inj"]').val('');
 							$("#part_code").html("");
 							alert(data.message);
 						}
