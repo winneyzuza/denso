@@ -647,6 +647,9 @@ class Create extends CI_Controller {
 		if ($this->input->is_ajax_request()) {
 			if ($this->session->userdata("logged_in")) {
 				if ($this->input->post("part_type")) {
+                                        if($this->input->post("part_type") == "pumpinjector"){
+                                            $this->session->set_userdata('pumpinj','pumpinjector');
+                                        }
 					$PostData = $this->input->post();
 					try {
 						$return['tabs'] = $this->load->view($PostData['part_type']."_tabheading_view","",true);
