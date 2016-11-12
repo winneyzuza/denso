@@ -146,15 +146,15 @@
                 </tr>
 				<tr class="empty_row"></tr>
 				<tr>
-					<td><?php echo lang('create_warranty_condition'); ?></td>
-					<td>
-						<label><input type="radio" name="warranty" value="in" disabled> <?php echo lang('create_warranty_in'); ?></input></label>
-						<label><input type="radio" name="warranty" value="out" disabled> <?php echo lang('create_warranty_out'); ?></input></label>
-					</td>
-					<td></td>
-					<td></td>
-					<td colspan="2"><?php //echo lang('create_status_of_ros'); ?></td>
-				</tr>
+                                    <td><?php echo lang('create_warranty_condition'); ?></td>
+                                    <td colspan="3">
+                                        <label><input type="radio" name="warranty" value="in" disabled> <?php echo lang('create_warranty_in'); ?></input></label>
+                                        <label><input type="radio" name="warranty" value="out" disabled> <?php echo lang('create_warranty_out'); ?></input></label>
+                                    </td>
+
+
+                                    <td colspan="2"><?php //echo lang('create_status_of_ros'); ?></td>
+                                </tr>
 				<tr class="empty_row"></tr>
 				<tr>
 					<td><?php echo lang('create_car_problem'); ?><span class="required">*</span></td>
