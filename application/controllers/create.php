@@ -318,7 +318,13 @@ class Create extends CI_Controller {
 			if ($this->session->userdata("logged_in")) {
 				if ($this->input->post("maker_id")) {
 					$PostData = $this->input->post();
-					$models = $this->create_model->getcarmodels($PostData);
+					if($this->input->post("part_type") == "pumpinjector"){
+                                            $models = $this->create_model->getcarmodelsPumpInject($PostData);
+                                        }else{
+                                            $models = $this->create_model->getcarmodels($PostData);
+                                        }
+
+                                        //$models = $this->create_model->getcarmodels($PostData);
 					$return['code'] = 200;
 					$return['message'] = "<option value=''>Select</option>";
 					foreach ($models as $key => $row) {
@@ -346,7 +352,13 @@ class Create extends CI_Controller {
 			if ($this->session->userdata("logged_in")) {
 				if ($this->input->post("maker_id")) {
 					$PostData = $this->input->post();
-					$models = $this->create_model->getenginemodels($PostData);
+                                        if($this->input->post("part_type") == "pumpinjector"){
+                                            $models = $this->create_model->getenginemodelsPumpInject($PostData);
+                                        }else{
+                                            $models = $this->create_model->getenginemodels($PostData);
+                                        }
+                                            
+					
 					$return['code'] = 200;
 					$return['message'] = "<option value=''>Select</option>";
 					foreach ($models as $key => $row) {
@@ -368,13 +380,18 @@ class Create extends CI_Controller {
 		echo json_encode($return);
 	}
         
-    public function getfailuremodels()
+        public function getfailuremodels()
 	{
 		if ($this->input->is_ajax_request()) {
 			if ($this->session->userdata("logged_in")) {
 				if ($this->input->post("engine_model")) {
 					$PostData = $this->input->post();
-					$models = $this->create_model->getfailuremodels($PostData);
+                                        if($this->input->post("part_type") == "pumpinjector"){
+                                            $models = $this->create_model->getfailuremodelsPumpInject($PostData);
+                                        }else{
+                                            $models = $this->create_model->getfailuremodels($PostData);
+                                        }
+					
 					$return['code'] = 200;
 					$return['message'] = "<option value=''>Select</option>";
 					foreach ($models as $key => $row) {
@@ -396,13 +413,18 @@ class Create extends CI_Controller {
 		echo json_encode($return);
 	}
         
-    public function getexchangemodels()
+        public function getexchangemodels()
 	{
 		if ($this->input->is_ajax_request()) {
 			if ($this->session->userdata("logged_in")) {
 				if ($this->input->post("car_maker_PN")) {
 					$PostData = $this->input->post();
-					$models = $this->create_model->getexchangemodels($PostData);
+                                        if($this->input->post("part_type") == "pumpinjector"){
+                                            $models = $this->create_model->getexchangemodelsPumpInject($PostData);
+                                        }else{
+                                            $models = $this->create_model->getexchangemodels($PostData);
+                                        }
+					
 					if (!empty($models)) {
 						$return['code'] = 200;
 						foreach ($models as $key => $row) {

@@ -235,6 +235,28 @@ class Manage_model extends CI_Model {
 
 		return $this->db->query($query)->result_array();
 	}
+        
+        public function getcarmodelsPumpInject($PostData)
+	{
+		$maker_id = $PostData['maker_id'];
+		$query =     "select distinct(car_model) from car_makers c
+
+                                left join (
+
+                                    select * from pump_parts pp
+
+                                    union all
+
+                                    select * from injector_parts) em
+
+                                on c.maker_id = em.maker_id
+
+                            group by car_model,engine_model,c.maker_id
+                            having c.maker_id = '$maker_id'
+                            order by engine_model asc";
+
+		return $this->db->query($query)->result_array();
+	}
 
 	public function getenginemodels($PostData)
 	{
@@ -246,7 +268,26 @@ class Manage_model extends CI_Model {
 		return $this->db->query($query)->result_array();
 	}
         
-    public function getfailuremodels($PostData)
+        public function getenginemodelsPumpInject($PostData)
+	{
+		
+		$car_model = $PostData['car_model'];
+		
+                
+                $query = "select distinct(engine_model) from car_makers c
+                                left join (
+                                            select * from pump_parts pp
+                                            union all
+                                            select * from injector_parts) em
+                                            on c.maker_id = em.maker_id
+                            group by car_model,engine_model
+                            having car_model = '$car_model'
+                            order by engine_model asc";
+
+		return $this->db->query($query)->result_array();
+	}
+        
+        public function getfailuremodels($PostData)
 	{
 		$table = $PostData['part_type']."_parts";
 		$maker_id = $PostData['maker_id'];
@@ -257,7 +298,24 @@ class Manage_model extends CI_Model {
 		return $this->db->query($query)->result_array();
 	}
         
-    public function getexchangemodels($PostData)
+        public function getfailuremodelsPumpInject($PostData)
+	{
+		$car_model = $PostData['car_model'];
+                $engine_model = $PostData['engine_model'];
+		//$query = "SELECT DISTINCT car_maker_PN FROM $table WHERE maker_id = '$maker_id' AND car_model = '$car_model' AND engine_model = '$engine_model'";
+                $query = "select distinct(car_maker_PN) from car_makers c
+                                left join (
+                                            select * from pump_parts pp
+                                            union all
+                                            select * from injector_parts) em
+                                            on c.maker_id = em.maker_id
+                            
+                            where car_model = '$car_model' AND engine_model = '$engine_model'
+                            order by engine_model asc";
+		return $this->db->query($query)->result_array();
+	}
+        
+        public function getexchangemodels($PostData)
 	{
 		$table = $PostData['part_type']."_parts";
 		$maker_id = $PostData['maker_id'];
@@ -265,6 +323,24 @@ class Manage_model extends CI_Model {
         $engine_model = $PostData['engine_model'];
         $car_maker_PN = $PostData['car_maker_PN'];
 		$query = "SELECT DISTINCT exchange_PN, part_code FROM $table WHERE maker_id = '$maker_id' AND car_model = '$car_model' AND engine_model = '$engine_model' AND car_maker_PN = '$car_maker_PN'";
+
+		return $this->db->query($query)->result_array();
+	}
+        
+        public function getexchangemodelsPumpInject($PostData)
+	{
+		$car_model = $PostData['car_model'];
+                $engine_model = $PostData['engine_model'];
+                $car_maker_PN = $PostData['car_maker_PN'];
+		$query = "select exchange_PN, part_code from car_makers c
+                                left join (
+                                            select * from pump_parts pp
+                                            union all
+                                            select * from injector_parts) em
+                                            on c.maker_id = em.maker_id
+                            
+                            where car_model = '$car_model' AND engine_model = '$engine_model' AND car_maker_PN = '$car_maker_PN'
+                            order by engine_model asc";
 
 		return $this->db->query($query)->result_array();
 	}

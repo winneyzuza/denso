@@ -310,7 +310,12 @@ class Manage extends CI_Controller {
 			if ($this->session->userdata("logged_in")) {
 				if ($this->input->post("maker_id")) {
 					$PostData = $this->input->post();
-					$models = $this->manage_model->getcarmodels($PostData);
+                                        if($this->input->post("part_type") == "pumpinjector"){
+                                            $models = $this->manage_model->getcarmodelsPumpInject($PostData);
+                                        }else{
+                                            $models = $this->manage_model->getcarmodels($PostData);
+                                        }
+					
 					$return['code'] = 200;
 					$return['message'] = "<option value=''>Select</option>";
 					foreach ($models as $key => $row) {
@@ -339,7 +344,13 @@ class Manage extends CI_Controller {
 			if ($this->session->userdata("logged_in")) {
 				if ($this->input->post("maker_id")) {
 					$PostData = $this->input->post();
-					$models = $this->manage_model->getenginemodels($PostData);
+					if($this->input->post("part_type") == "pumpinjector"){
+                                            $models = $this->manage_model->getenginemodelsPumpInject($PostData);
+                                        }else{
+                                            $models = $this->manage_model->getenginemodels($PostData);
+                                        }
+                                        
+                                        //$models = $this->manage_model->getenginemodels($PostData);
 					$return['code'] = 200;
 					$return['message'] = "<option value=''>Select</option>";
 					foreach ($models as $key => $row) {
@@ -403,7 +414,13 @@ class Manage extends CI_Controller {
 			if ($this->session->userdata("logged_in")) {
 				if ($this->input->post("engine_model")) {
 					$PostData = $this->input->post();
-					$models = $this->manage_model->getfailuremodels($PostData);
+                                        
+                                        if($this->input->post("part_type") == "pumpinjector"){
+                                            $models = $this->manage_model->getfailuremodelsPumpInject($PostData);
+                                        }else{
+                                            $models = $this->manage_model->getfailuremodels($PostData);
+                                        }
+					//$models = $this->manage_model->getfailuremodels($PostData);
 					$return['code'] = 200;
 					$return['message'] = "<option value=''>Select</option>";
 					foreach ($models as $key => $row) {
@@ -431,7 +448,13 @@ class Manage extends CI_Controller {
 			if ($this->session->userdata("logged_in")) {
 				if ($this->input->post("car_maker_PN")) {
 					$PostData = $this->input->post();
-					$models = $this->manage_model->getexchangemodels($PostData);
+                                        
+                                        if($this->input->post("part_type") == "pumpinjector"){
+                                            $models = $this->manage_model->getexchangemodelsPumpInject($PostData);
+                                        }else{
+                                            $models = $this->manage_model->getexchangemodels($PostData);
+                                        }
+					//$models = $this->manage_model->getexchangemodels($PostData);
 					$return['code'] = 200;
 					foreach ($models as $key => $row) {
 						$return['message']=$row['exchange_PN'];
