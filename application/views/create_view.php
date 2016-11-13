@@ -896,7 +896,9 @@
 			var data = form.serialize();
 			var draft = button.attr("id")=="frm_submit"?"false":"true";
 			var action = button.data("action");
-            if($('select[name="part_failure_pn"]').val()=='' && draft == 'false' && !$('select[name="part_failure_pn"]').parents('tr').hasClass('hidden')){
+            if($('select[name="part_failure_pn"]').val()=='' && draft == 'false' && !$('select[name="part_failure_pn"]').parents('tr').hasClass('hidden')
+              || $('select[name="part_failure_pn_inj"]').val()=='' && draft == 'false' && !$('select[name="part_failure_pn_inj"]').parents('tr').hasClass('hidden')      
+              ){
                 $('select[name="part_failure_pn"]').addClass("error");
                 alert("VALIDATION ERROR");
                 hideLoader();
@@ -904,6 +906,7 @@
             }
             else{
                 $('select[name="part_failure_pn"]').removeClass("error");
+                $('select[name="part_failure_pn_inj"]').removeClass("error");
             }
 			var maker_name = $('#maker:checked').parent('label').text();
 			var inputs = form.find("input, select");

@@ -417,6 +417,10 @@ class Manage extends CI_Controller {
                                         
                                         if($this->input->post("part_type") == "pumpinjector"){
                                             $models = $this->manage_model->getfailuremodelsPumpInject($PostData);
+                                            
+                                            $this->load->model('manage_model');
+                                            $data['ext_field'] = $this->manage_model->getROSPumpInject($PostData);
+                                            $this->session->set_userdata('ext_field',$data['ext_field']);
                                         }else{
                                             $models = $this->manage_model->getfailuremodels($PostData);
                                         }

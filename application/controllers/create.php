@@ -139,7 +139,162 @@ class Create extends CI_Controller {
                         goto error;
                     break;
                 }
+                $part_type = $this->session->userdata('pumpinj');
+                if ($part_type=='pumpinjector'){
+                        $p_ex_pn = $PostData['part_exchange_pn'];
+                        $p_fl_pn = $PostData['part_failure_pn'];
+                        
+                        $fn_sn1 = $PostData['failure_sn_1'];
+                        $fn_sn2 = $PostData['new_sn_1'];
+                        $fn_sn3 = $PostData['remark'];
+                        
+                        $PostData['part_exchange_pn'] = $PostData['part_exchange_pn_inj'];
+                        $PostData['part_failure_pn'] = $PostData['part_failure_pn_inj'];
+                        
+                        $PostData['failure_sn_1'] = $PostData['failure_sn_1_inj'];
+                        $PostData['new_sn_1'] = $PostData['new_sn_1_inj'];
+                        $PostData['remark'] = $PostData['remark_inj'];
+                        
+                        unset($PostData['part_exchange_pn_inj']);
+                        unset($PostData['part_failure_pn_inj']);
+                        
+                        unset($PostData['failure_sn_1_inj']);
+                        unset($PostData['new_sn_1_inj']);
+                        unset($PostData['remark_inj']);
+                        
+                        switch ($action) {
+                            case 'add':
+                                if (isset($PostData['ros_no'])) {
+                                    $ros_no = $PostData['ros_no'];
+                                    $this->create_model->deletedraft($ros_no);
+                                }
+                                $last_ros_no = $this->create_model->getlast($table, $ros_prefix);
+                                $runnin_number = explode("-", $last_ros_no);
+                                $runnin_number = $runnin_number[1];
+                                $runnin_number = sprintf("%03d",$runnin_number+1);
+                                $PostData['ros_no'] = $ros_prefix."-".($runnin_number)."-".(date('y'));
+                                $PostData['created_by'] = $this->session->userdata("sd_id");
+                                $PostData['ext_field'] = "injector";
+                                
+                                $return['code'] = $this->create_model->create($PostData,$table)?1:0;
+                                if ($return['code'] === 1 AND $draft === "false") {
+                                        $sd_name = $this->session->userdata("full_name");
+                                        $part_type = $this->create_model->getpartnamebyid($PostData['part_id']);
+                                    $to = "densoth.ros@gmail.com";
+                                    // $to = "yanksin@gmail.com";
+                                    $subject = "**[New IMV] New Request ROS No.".$PostData['ros_no']." has been added.";
+                                                        $message = "A new request has been made in the ROS system.
+                                                                                <br/>
+                                                                                <b>Ros. No. ".$PostData['ros_no']."
+                                                                                <br/>
+                                                                                From SD Name: ".$sd_name."
+                                                                                <br/>
+                                                                                Part Type: ".$part_type."</b>
+                                                                                <br/><br/>
+                                                                                To view it, log in to the system".
+                                                                    " at ".anchor(str_replace("densoIMV", "densoIMV_backend", base_url())."index.php/manage/ros/".$PostData['ros_no'],"this link")."";
+                                                        $message = wordwrap($message, 70, "\r\n");
+                                                        send_email($to,$subject,$message);
+                                }
+                                $log_ros_no = $PostData['ros_no'];
+                                $return['ross'] = $PostData['ros_no'];
+                            break;
 
+                            case 'update':
+                                $PostData['ext_field'] = "injector";
+                                $this->session->set_userdata('ext_field','injector');
+                                $PostData['updated_time'] = date('Y-m-d H:i:s');
+                                $PostData['ext_field'] = "injector";
+                                $ros_no = $PostData['ros_no'];
+                                $return['code'] = $this->create_model->update($PostData,$table)?1:0;
+                                $return['ross'] = $ros_no;
+                                $log_ros_no = $ros_no;
+                            break;
+
+                            case 'cancel':
+                                $PostData['updated_time'] = date('Y-m-d H:i:s');
+                                $PostData['status'] = "Cancel";
+                                $log_status = "Cancel";
+                                $ros_no = $PostData['ros_no'];
+                                $log_ros_no = $PostData['ros_no'];
+                                $return['code'] = $this->create_model->update($PostData,$table)?1:0;
+                                $return['ross'] = $ros_no;
+                            break;
+                            default:
+                                goto error;
+                            break;
+                        }
+                        
+                        $PostData['part_exchange_pn']= $p_ex_pn;
+                        $PostData['part_failure_pn'] = $p_fl_pn;
+                        
+                        $PostData['failure_sn_1'] = $fn_sn1;
+                        $PostData['new_sn_1'] = $fn_sn2;
+                        $PostData['remark'] = $fn_sn3;
+                        $PostData['ext_field'] = "pump";
+                        
+                        switch ($action) {
+                            case 'add':
+                                if (isset($PostData['ros_no'])) {
+                                    $ros_no = $PostData['ros_no'];
+                                    $this->create_model->deletedraft($ros_no);
+                                }
+                                $last_ros_no = $this->create_model->getlast($table, $ros_prefix);
+                                $runnin_number = explode("-", $last_ros_no);
+                                $runnin_number = $runnin_number[1];
+                                $runnin_number = sprintf("%03d",$runnin_number+1);
+                                $PostData['ros_no'] = $ros_prefix."-".($runnin_number)."-".(date('y'));
+                                $PostData['created_by'] = $this->session->userdata("sd_id");
+
+
+
+                                $return['code'] = $this->create_model->create($PostData,$table)?1:0;
+                                if ($return['code'] === 1 AND $draft === "false") {
+                                        $sd_name = $this->session->userdata("full_name");
+                                        $part_type = $this->create_model->getpartnamebyid($PostData['part_id']);
+                                    $to = "densoth.ros@gmail.com";
+                                    // $to = "yanksin@gmail.com";
+                                    $subject = "**[New IMV] New Request ROS No.".$PostData['ros_no']." has been added.";
+                                                        $message = "A new request has been made in the ROS system.
+                                                                                <br/>
+                                                                                <b>Ros. No. ".$PostData['ros_no']."
+                                                                                <br/>
+                                                                                From SD Name: ".$sd_name."
+                                                                                <br/>
+                                                                                Part Type: ".$part_type."</b>
+                                                                                <br/><br/>
+                                                                                To view it, log in to the system".
+                                                                    " at ".anchor(str_replace("densoIMV", "densoIMV_backend", base_url())."index.php/manage/ros/".$PostData['ros_no'],"this link")."";
+                                                        $message = wordwrap($message, 70, "\r\n");
+                                                        send_email($to,$subject,$message);
+                                }
+                                $log_ros_no = $PostData['ros_no'];
+                                $return['ross'] = $PostData['ros_no'];
+                            break;
+
+                            case 'update':
+                                $PostData['updated_time'] = date('Y-m-d H:i:s');
+                                $ros_no = $PostData['ros_no'];
+                                $return['code'] = $this->create_model->update($PostData,$table)?1:0;
+                                $return['ross'] = $ros_no;
+                                $log_ros_no = $ros_no;
+                            break;
+
+                            case 'cancel':
+                                $PostData['updated_time'] = date('Y-m-d H:i:s');
+                                $PostData['status'] = "Cancel";
+                                $log_status = "Cancel";
+                                $ros_no = $PostData['ros_no'];
+                                $log_ros_no = $PostData['ros_no'];
+                                $return['code'] = $this->create_model->update($PostData,$table)?1:0;
+                                $return['ross'] = $ros_no;
+                            break;
+                            default:
+                                goto error;
+                            break;
+                        }
+                }
+                else{
                 switch ($action) {
                     case 'add':
                         if (isset($PostData['ros_no'])) {
@@ -152,6 +307,9 @@ class Create extends CI_Controller {
                         $runnin_number = sprintf("%03d",$runnin_number+1);
                         $PostData['ros_no'] = $ros_prefix."-".($runnin_number)."-".(date('y'));
                         $PostData['created_by'] = $this->session->userdata("sd_id");
+                        
+                        
+                        
                         $return['code'] = $this->create_model->create($PostData,$table)?1:0;
                         if ($return['code'] === 1 AND $draft === "false") {
                         	$sd_name = $this->session->userdata("full_name");
@@ -196,6 +354,7 @@ class Create extends CI_Controller {
                     default:
                         goto error;
                     break;
+                }
                 }
                 trace_status($log_ros_no,$log_status);
                 $return['message'] = "Data recieved";

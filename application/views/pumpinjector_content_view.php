@@ -239,18 +239,18 @@ else{ ?>
         <tr class="empty_row"></tr>
         <tr class="pump parttype">
             <td class="right"><?php echo lang('create_sn'); ?></td>
-            <td><textarea name="failure_sn_1"></textarea></td>
+            <td><textarea name="failure_sn_1_inj"></textarea></td>
         </tr>
         <tr class="empty_row"></tr>
         <tr class="pump parttype">
             <td class="right"><?php echo lang('create_new_sn'); ?></td>
-            <td><textarea name="new_sn_1"></textarea></td>
+            <td><textarea name="new_sn_1_inj"></textarea></td>
         </tr>
         <tr class="empty_row"></tr>
         <tr class="empty_row"></tr>
         <tr>
             <td><?PHP echo lang('create_remark'); ?></td>
-            <td colspan="6"><textarea name="remark"></textarea></td>
+            <td colspan="6"><textarea name="remark_inj"></textarea></td>
         </tr>
         <tr class="empty_row"></tr>
         <tr class="empty_row"></tr>

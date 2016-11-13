@@ -57,7 +57,18 @@
 			<td class="blue_back"><?php echo lang('create_status_of_ros'); ?></td>
 		</tr> -->
 		<tr class="empty_row"></tr>
-        <tr class="injector parttype"><td colspan="4"><?php echo lang('create_injector_exchange'); ?></td></tr>
+        <?PHP
+            $ext_field = $this->session->userdata('ext_field');
+            
+            if($ext_field == 'injector'){ ?>
+                <tr class="injector parttype"><td colspan="4"><?php echo lang('create_injector_exchange'); ?></td></tr>
+            
+            <?PHP }
+            else{?>
+                <tr class="injector parttype"><td colspan="4"><?php echo lang('create_pump_exchange'); ?></td></tr>
+            <?PHP }
+            ?>        
+        
         <tr class="empty_row"></tr>
 		<!-- <tr>
 			<td colspan="2"><label><input type="checkbox" /> <?php echo lang('create_supply_pump'); ?>
