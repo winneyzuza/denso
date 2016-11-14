@@ -681,7 +681,9 @@ class Create extends CI_Controller {
 	}
 
 	public function searchform(){
+			$this->load->view('header_view');
 			$this->load->view('search_view');
+			$this->load->view('footer_view');
 	}
 	
     public function printform(){
@@ -859,48 +861,136 @@ class Create extends CI_Controller {
         
         public function doSearchAction(){
         	
-        	$maker_id = $this->input->post('CarMaker');
-        	$car_model = $this->input->post('CarModel');
-        	$status = "";
-        	$filter = "TOYOTA";
-        	//$return = $this->create_model->getrosfiltered($this->session->userdata("sd_id"),$status,0, 10, $filter);
-        		$query = "select distinct(model.car_model),model.maker_id,model.engine_model,model.car_maker_PN,model.exchange_PN from car_makers c
-        					left join (
+        	if ($this->session->userdata('logged_in')) {
+        	
+	        	$maker_id = $this->input->post('CarMaker');
+	        	$model_name = $this->input->post('ModelName');
+	        	$model_code = $this->input->post('ModelCode');
+	        	$car_maker_pn = $this->input->post('CarMakerPN');
+	        	$DensoPartNo = $this->input->post('DensoPartNo');
+	        	$KeyWords = $this->input->post('KeyWords');
+	        	$status = "";
+	        	$per_page = 20;
+	        	
+	        	$offset = $this->input->get("record");
+	        	if ($offset == "" OR $offset%$per_page!=0) {
+	        		$offset = 0;
+	        	}
+	        	
+	        	$return = $this->create_model->getCarModelfiltered($maker_id,$model_name,$model_code,$car_maker_pn,$DensoPartNo,$KeyWords,$offset, $per_page);
+	        	$data['records'] = $return['records'];
+	        	$data['maker_ids'] = $maker_id;
+	        	$data['model_names'] = $model_name;
+	        	$data['model_codes'] = $model_code;
+	        	$total_rows = $return['total_rows'];
+	
+	        	//config the pagination library.
+	        	$config['base_url'] = base_url().'index.php/create';
+	        	$config['total_rows'] = $total_rows;
+	        	$config['per_page'] = $per_page;
+	        	$config['page_query_string'] = TRUE;
+	        	$config['first_link'] = 'First';
+	        	$config['last_link'] = 'Last';
+	        	$config['query_string_segment'] = 'record';
+	        	
+	        	//Initialize the pagination library with above configurations.
+	        	$this->pagination->initialize($config);
+	        	
+	        	$this->load->view('header_view');
+	        	$this->load->view('search_view',$data);
+	        	$this->load->view('footer_view');
+	        	
+        	} else{
+        		redirect("home");
+        	}
+        }
+        
+        public function fetchallcarmodel(){
+
+        	if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+        		$maker_id = $this->input->post('CarMaker');
+        		
+        		$orCondition = "";
+        		if(!isset($maker_id) || empty($maker_id)){
+        			$orCondition = " or model.maker_id like '%' ";
+        		}
+        
+        		$query = "select distinct(model.car_model) from (
 		        				select * from pump_parts pp
 		        				union all
 		        				select * from compressor_parts cp
 		        				union all
-		        				select * from injector_parts
+		        				select * from injector_parts ip
 		        				union all
-		        				select * from alternator_parts) model
-		        			on c.maker_id = model.maker_id
-		        		where c.maker_id = '".$maker_id."'"." order by model.car_model asc";
-        		
-        		
-        	$return['records'] =  $this->db->query($query)->result_array();
-        	$return['total_rows'] = $this->db->query($query)->num_rows();
+		        				select * from alternator_parts ap) model
+		        		where model.maker_id = '".$maker_id."' ".$orCondition.
+        				" "." order by model.car_model asc";
         
-        	$data['records'] = $return['records'];
-        	$data['total_rows'] = $return['total_rows'];
-        	
-        	$total_rows = $return['total_rows'];
+        		$result =  $this->db->query($query)->result_array();
+        		echo json_encode($result);
+        	}
+        }
 
-        	//config the pagination library.
-        	$config['base_url'] = base_url().'index.php/create';
-        	$config['total_rows'] = $total_rows;
-        	// $config['use_page_numbers'] = TRUE;
-        	$config['per_page'] = 30;
-        	$config['page_query_string'] = TRUE;
-        	$config['first_link'] = 'First';
-        	$config['last_link'] = 'Last';
-        	$config['query_string_segment'] = 'record';
-        	
-        	//Initialize the pagination library with above configurations.
-        	$this->pagination->initialize($config);
-        	
-        	//$data['table_makers'] = $this->create_model->getallmakers();        	
-        	$this->load->view('search_view',$data);
-        	
+        public function fetchallcarengine(){
+        
+        	if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+        	    $maker_id = $this->input->post('CarMaker');
+        		$car_model = $this->input->post('ModelName');
+        
+        		$orCondition = "";
+        		$condition = "";
+        		
+			if ((isset($maker_id) && !empty($maker_id)) && (!isset($car_model) || empty($car_model))) {
+				$condition = " or model.maker_id = '" . $maker_id . "' ";
+			} elseif ((!isset($maker_id) || empty($maker_id)) && (isset($car_model) && !empty($car_model))) {
+				$condition = " or model.car_model = '" . $car_model . "' ";
+			} else{
+				
+				if ((!isset($maker_id) || empty($maker_id)) && (!isset($car_model) || empty($car_model))) {
+					$orCondition = " or trim(model.car_model) like '%' ";
+				}
+			}
+        
+        		$query = "select distinct(model.engine_model) from (
+		        				select * from pump_parts pp
+		        				union all
+		        				select * from compressor_parts cp
+		        				union all
+		        				select * from injector_parts ip
+		        				union all
+		        				select * from alternator_parts ap) model
+		        		where (trim(model.car_model) = '".trim($car_model)."' ".$condition.") ".
+		        		$orCondition." "." order by model.engine_model asc";
+        
+        		$result =  $this->db->query($query)->result_array();
+        		echo json_encode($result);
+        	}
+        }
+
+        public function fetchallcarengine_bycarmaker(){
+        
+        	if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+        		$maker_id = $this->input->post('CarMaker');
+        
+        		$orCondition = "";
+        		if(!isset($maker_id) || empty($maker_id)){
+        			$orCondition = " or trim(model.maker_id) like '%' ";
+        		}
+        
+        		$query = "select distinct(model.engine_model) from (
+		        				select * from pump_parts pp
+		        				union all
+		        				select * from compressor_parts cp
+		        				union all
+		        				select * from injector_parts ip
+		        				union all
+		        				select * from alternator_parts ap) model
+		        		where trim(model.maker_id) = '".trim($maker_id)."' ".$orCondition.
+        		        		" "." order by model.engine_model asc";
+        
+        		$result =  $this->db->query($query)->result_array();
+        		echo json_encode($result);
+        	}
         }
 }
 

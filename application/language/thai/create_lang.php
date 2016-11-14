@@ -124,3 +124,4 @@ $lang['denso_part_no'] = "DENSO Part. No";
 $lang['keywords'] = "Keyword";
 $lang['search'] = "Search";
 $lang['clear'] = "Clear";
+$lang['maker_name'] = "maker_th";

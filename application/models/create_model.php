@@ -418,6 +418,97 @@ class Create_model extends CI_Model {
 			return FALSE;
 		}
 	}
+	
+	public function getCarModelfiltered($maker_id,$model_name,$model_code,$car_maker_pn,$DensoPartNo,$KeyWords,$offset, $per_page)
+	{
+	
+		//$maker_id
+		if (isset($maker_id) && !empty($maker_id)) {
+			$filter_query = " and cm.maker_id = '".$maker_id."'";
+		} else {
+			$filter_query = " and cm.maker_id like '%'";
+		}
+	
+		//$model_name
+		if (isset($model_name) && !empty($model_name)) {
+			$filter_query .= " and model.car_model = '".$model_name."'";
+		}
+	
+		//$model_code
+		if (isset($model_code) && !empty($model_code)) {
+			$filter_query .= " and model.engine_model = '".$model_code."'";
+		}
+	
+		//$car_maker_pn
+		if (isset($car_maker_pn) && !empty($car_maker_pn)) {
+			$filter_query .= " and model.car_maker_PN = '".$car_maker_pn."'";
+		}
+	
+		//$DensoPartNo
+		if (isset($DensoPartNo) && !empty($DensoPartNo)) {
+			$filter_query .= " and model.exchange_PN = '".$DensoPartNo."'";
+		}
+	
+		//$KeyWords
+		if (isset($KeyWords) && !empty($KeyWords)) {
+			$filter_query .= " and (maker_en like '%".$KeyWords."%'";
+			$filter_query .= " or maker_th like '%".$KeyWords."%'";
+			$filter_query .= " or car_model like '%".$KeyWords."%'";
+			$filter_query .= " or model.engine_model like '%".$KeyWords."%'";
+			$filter_query .= " or model.car_maker_PN like '%".$KeyWords."%'";
+			$filter_query .= " or model.exchange_PN like '%".$KeyWords."%')";
+		}
+	
+	
+		//$select = "created_time,repair_date,dealer.".lang('manage_dealer_name')." AS dealer_".lang('manage_dealer_name').",CONCAT('<a href=''manage/ros/',ros_no,'''>',ros_no,'</a>') AS ros_no,ros_no AS raw_ros,service_dealer.".lang("manage_sd_name")." AS service_dealer,warranty, car_model, part_types.".lang("manage_part_type_column").", car_makers.".lang("manage_maker_name").", ros_form.part_failure_pn AS part_no, ros_form.status_approve_date AS ApproveDate, ros_form.status_delivery_date AS Delivery, ros_form.status_core_return_date AS Core, status";
+		$additional = " LIMIT $per_page OFFSET $offset";
+		$query = "  select car_model,model.maker_id,cm.maker_en as maker_en,cm.maker_th,engine_model,car_maker_PN,exchange_PN
+						from (
+						select * from pump_parts pp
+						union all
+						select * from compressor_parts cp
+						union all
+						select * from injector_parts ip
+						union all
+						select * from alternator_parts ap) model
+					join car_makers cm on cm.maker_id = model.maker_id
+					".$filter_query." order by model.maker_id,model.car_model,model.engine_model,model.car_maker_PN,model.exchange_PN asc ";
+	
+		$result = $this->db->query($query.$additional);
+	
+		if ($result->num_rows() >= 1) {
+			$return['records'] = $result->result_array();
+			$return['total_rows'] = $this->db->query($query)->num_rows();
+		}
+	
+		if (!empty($return)) {
+			return $return;
+		} else{
+			return FALSE;
+		}
+	}
+	
+	public function getEmailGroup($maker_id,$car_model)
+	{
+		$return = $this->db->get_where('car_model_notification', array('maker_id' => $maker_id, 'car_model' => $car_model))->row_array();
+		
+		if (!empty($return)) {
+			return $return;
+		} else{
+			return false;
+		}
+	}
+	
+	public function getemailTemplate($maker_id,$car_model)
+	{
+		$return = $this->db->get_where('car_model_notification cn', array('cn.maker_id' => $maker_id, 'cn.car_model' => $car_model))->row_array();
+	
+		if (!empty($return)) {
+			return $return;
+		} else{
+			return false;
+		}
+	}
 
 }
 
