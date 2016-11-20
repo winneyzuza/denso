@@ -16,8 +16,11 @@ if ( ! function_exists('send_email'))
 	function send_email($to, $subject, $message, $from = "",$as = "Admin")
 	{
 		$CI =& get_instance();
-		$from = "projectcodeigniter@gmail.com";
-		$as = "Admin";
+		
+		if(!isset($from) || empty($from)){
+			$from = "projectcodeigniter@gmail.com";
+			$as = "Admin";
+		}
 		$CI->load->library('email');
         $CI->email->from($from,$as);
         $CI->email->to($to);

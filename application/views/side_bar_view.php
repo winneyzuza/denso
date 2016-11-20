@@ -27,10 +27,11 @@
                     <li><?php echo anchor('editProfile/editDealerInfoScreen', lang('edit_profile_info')); ?></li>
                 </div>
 			</ul>				
-				<li><?php echo lang('side_exchange_system'); ?></li>
-				<ul>
-					<li><a href="<?php echo base_url(); ?>"><?php echo lang('side_DFIP'); ?></a></li>
-				</ul>
+			<li><?php echo lang('side_exchange_system'); ?></li>
+			<ul>
+				<li><a href="<?php echo base_url(); ?>"><?php echo lang('side_DFIP'); ?></a></li>
+			</ul>
+			<p><li><?php echo anchor('create/searchform', lang('search_title'),array('target' => '_blank')); ?></li></p>
 			</ul>
 		</div>
 	<?php } ?>

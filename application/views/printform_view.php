@@ -63,7 +63,7 @@
             <td>ที่อยู่</td>
             <td colspan="3" class="bordersolidright"><?php echo isset($sd_info['address'])?$sd_info['address']:'__________' ?></td>
             <td>ที่อยู่</td>
-            <td colspan="3" class="bordersolidright"><?php echo isset($dealer_info['address'])?$dealer_info['address']:'__________' ?></td>
+            <td colspan="3" class="bordersolidright"><?php echo isset($dealer_info['address']) && $dealer_info['address'] != "NULL"?$dealer_info['address']:'__________' ?></td>
         </tr>
         <tr>
             <td>โทร</td>
@@ -71,9 +71,9 @@
             <td>โทรสาร</td>
             <td class="bordersolidright"><?php echo isset($sd_info['fax'])?$sd_info['fax']:'__________' ?></td>
             <td>โทร</td>
-            <td><?php echo isset($dealer_info['primary_phone'])?$dealer_info['primary_phone']:'__________' ?></td>
+            <td><?php echo isset($dealer_info['primary_phone']) && $dealer_info['primary_phone'] != "NULL"?$dealer_info['primary_phone']:'__________' ?></td>
             <td>โทรสาร</td>
-            <td class="bordersolidright"><?php echo isset($dealer_info['fax'])?$dealer_info['fax']:'__________' ?></td>
+            <td class="bordersolidright"><?php echo isset($dealer_info['fax'])  && $dealer_info['fax'] != "NULL"?$dealer_info['fax']:'__________' ?></td>
         </tr>
         <tr>
             <td rowspan="3" colspan="2" class="bold">ROS NO.</td>
@@ -103,9 +103,9 @@
             </td>
             <td>
                 ชิ้นส่วนที่เป็นต้นเหตุของปัญหา
-                <input type="checkbox" <?PHP if(intval($this->input->get('part_id')) === 2) echo "checked"; ?>/>
+                <input type="checkbox" <?PHP if(intval($this->input->get('part_id')) === 2 || (intval($this->input->get('part_id')) != 3 || intval($this->input->get('part_id')) != 4)) echo "checked"; ?>/>
                 หัวฉีด
-                <input type="checkbox" <?PHP if(intval($this->input->get('part_id')) === 1) echo "checked"; ?>/>
+                <input type="checkbox" <?PHP if(intval($this->input->get('part_id')) === 1 || (intval($this->input->get('part_id')) != 3 || intval($this->input->get('part_id')) != 4)) echo "checked"; ?>/>
                 ปั๊มเชื้อเพลิง
             </td>
         </tr>

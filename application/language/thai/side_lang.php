@@ -7,3 +7,4 @@ $lang['side_logout'] = "ออกจากระบบ";
 $lang['edit_profile'] = "แก้ไขข้อมูลส่วนตัว";
 $lang['edit_password'] = "แก้ไขรหัสผ่าน";
 $lang['edit_profile_info'] = "แก้ไขชื่อร้าน/ที่อยู่";
+$lang['search_title'] = "ค้นหาข้อมูลรถยนต์ / เบอร์อะไหล่";

@@ -7,3 +7,4 @@ $lang['side_logout'] = "Logout";
 $lang['edit_profile'] = "Edit Personal Information";
 $lang['edit_password'] = "Change password";
 $lang['edit_profile_info'] = "Change Dealer Profile";
+$lang['search_title'] = "Search Car model/Part No.";

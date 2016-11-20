@@ -958,7 +958,7 @@
 		});
 
         $('#searchform').on('click',function(){
-            alert('Opening new window to search function.');
+            /* alert('Opening new window to search function.'); */
             window.open("<?php echo base_url(); ?>index.php/create/searchform");
 		});
 		          

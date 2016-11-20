@@ -12,3 +12,9 @@ CREATE TABLE email_template(
 );
 
 #----------------------------------------------------------------------------------
+
+INSERT INTO `part_types` (`id`, `part_id`, `name_eng`, `name_th`, `table_prefix`, `timestamp`) VALUES
+(5, '0010', 'Supply Pump & Injector', 'ปั๊มและหัวฉีด', 'pumpinjector', '2016-11-20 17:35:47');
+
+COMMIT;
+#----------------------------------------------------------------------------------
