@@ -214,43 +214,65 @@ else{ ?>
     </table>
     <hr/>
     <br/>
+    
     <table>
-
+        
+        <tr class="injector parttype"><td colspan="4"><?php echo lang('create_injector_exchange'); ?></td></tr>
         <tr class="empty_row"></tr>
-        <tr class="pump parttype"><td colspan="4"><?php echo lang('create_injector_exchange'); ?></td></tr>
+        
+        <tr class="injector parttype">
+            <td class="right"><?php echo lang('create_quantity'); ?></td>
+            <td><input type="text" name="part_quantity" placeholder="Quantity" />&nbsp;&nbsp;<?php echo lang('create_quantity_unit'); ?></td>
+        </tr>
         <tr class="empty_row"></tr>
-
-        <tr class="pump parttype">
+        <tr class="injector parttype">
             <td></td>
             <td><?php echo lang('create_failure'); ?></td>
             <td></td>
             <td><?php echo lang('create_exchange'); ?></td>
         </tr>
-        <tr class="pump parttype">
-            <td class="right"><?php echo lang('create_pn'); ?><span class="required">*</span></td>
+        <tr class="injector parttype">
+            <td class="right"><?php echo lang('create_pn'); ?></td>
             <td>
                 <select name="part_failure_pn_inj">
                     <option value=""><?php echo lang('create_general_select'); ?></option>
                 </select>
             </td>
             <td class="right"><?php echo lang('create_pn'); ?></td>
-            <td colspan="2"><input type="text" readonly name="part_exchange_pn_inj" ></td>
+            <td colspan="2"><input type="text" readonly name="part_exchange_pn_inj"></td>
         </tr>
         <tr class="empty_row"></tr>
-        <tr class="pump parttype">
-            <td class="right"><?php echo lang('create_sn'); ?></td>
-            <td><textarea name="failure_sn_1_inj"></textarea></td>
+        <tr class="injector parttype">
+            <td></td>
+            <!-- <td class="right"><?php echo lang('create_failure') . " " . lang('create_sn') . " "; ?></td> -->
+            <td>#1</td>
+            <td>#2</td>
+            <td>#3</td>
+            <td>#4</td>
+            <td>#5</td>
+            <td>#6</td>
         </tr>
+        <tr class="injector parttype">
+            <td class="right"><?php echo lang('create_failure') . " " . lang('create_sn') . " "; ?></td>
+            <td><textarea name="failure_sn_11"></textarea></td>
+            <td><textarea name="failure_sn_22"></textarea></td>
+            <td><textarea name="failure_sn_33"></textarea></td>
+            <td><textarea name="failure_sn_44"></textarea></td>
+            <td><textarea name="failure_sn_55"></textarea></td>
+            <td><textarea name="failure_sn_66"></textarea></td>
         <tr class="empty_row"></tr>
-        <tr class="pump parttype">
-            <td class="right"><?php echo lang('create_new_sn'); ?></td>
-            <td><textarea name="new_sn_1_inj"></textarea></td>
-        </tr>
-        <tr class="empty_row"></tr>
+        <tr class="injector parttype">
+            <td class="right"><?php echo lang('create_new_sn') . " "; ?></td>
+            <td><textarea name="new_sn_11"></textarea></td>
+            <td><textarea name="new_sn_22"></textarea></td>
+            <td><textarea name="new_sn_33"></textarea></td>
+            <td><textarea name="new_sn_44"></textarea></td>
+            <td><textarea name="new_sn_55"></textarea></td>
+            <td><textarea name="new_sn_66"></textarea></td>
         <tr class="empty_row"></tr>
         <tr>
             <td><?PHP echo lang('create_remark'); ?></td>
-            <td colspan="6"><textarea name="remark_inj"></textarea></td>
+            <td colspan="6"><textarea name="remark1"></textarea></td>
         </tr>
         <tr class="empty_row"></tr>
         <tr class="empty_row"></tr>
@@ -258,7 +280,7 @@ else{ ?>
         <tr>
             <td colspan="2"><button type="button" class="blue_back button prev_tab"><?php echo lang('create_back'); ?></button></td>
             <td colspan="2"></td>
-            <td><button type="button" id="frm_submit" class="blue_back button" data-action="<?php echo (isset($ros_info['ros_no']) AND $ros_info['status']!='Draft')?('update'):('add'); ?>"><?php echo lang('create_request'); ?></button></td>
+            <td><button type="button" id="frm_submit" class="blue_back button" data-action="<?php echo (isset($ros_info['ros_no']) AND $ros_info['status'] != 'Draft') ? ('update') : ('add'); ?>"><?php echo lang('create_request'); ?></button></td>
         </tr>
     </table>
 </div>

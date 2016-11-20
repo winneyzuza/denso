@@ -315,16 +315,15 @@ class Manage_model extends CI_Model {
 		return $this->db->query($query)->result_array();
 	}
         
-        public function getROSPumpInject($PostData)
+        public function getROSPumpInject($ros_no)
 	{
-		$car_model = $PostData['car_model'];
-                $engine_model = $PostData['engine_model'];
+		$table = "ros_form";
+		$select = "ext_field";
 		
-                $query = "select ext_field from ros_form
-                          where car_model = '$car_model' AND engine_model = '$engine_model'
-                          ";
-		return $this->db->query($query)->result_array();
-	}
+		$query = "SELECT $select FROM $table WHERE ros_no = '$ros_no'";
+		return $this->db->query($query)->row_array();
+        }
+              
         
         public function getexchangemodels($PostData)
 	{

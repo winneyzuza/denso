@@ -427,6 +427,14 @@
             $('#part_id')
                 .empty()
             ;
+            
+            <?PHP if($this->session->userdata('lang') == 'th') {?>
+               $('#maker').val($("#maker option:contains('ยี่ห้อ')").val()); 
+            <?PHP } ?>
+
+            <?PHP if($this->session->userdata('lang') == 'en') {?>
+                $('#maker').val($("#maker option:contains('TO')").val()); 
+            <?PHP } ?> 
             $.ajax({
 
                     url: "<?php echo base_url(); ?>index.php/create/getAddress",
@@ -474,8 +482,9 @@
                     error: function(){
                             alert("Error with response");
                     }        
-                   
             });
+            $('#dealer_name').html("<option selected value=''><?php echo lang('create_general_select'); ?></option>");
+            destroyAutoComplete();
         }
         
         $("select[name='car_problem']").on("change",car_problem_change);
@@ -596,7 +605,15 @@
         function frontshop(){
             if($('#frontshop').is(':checked')){
                 $('#dealer_name').html(frontd);
-                $("#dealer_txt").val(fronto);
+                
+                <?PHP if($this->session->userdata('lang') == 'th') {?>
+                    $("#dealer_txt").val("แลกเปลี่ยนหน้าร้าน");
+                <?PHP } ?>
+                    
+                <?PHP if($this->session->userdata('lang') == 'en') {?>
+                    $("#dealer_txt").val("Front Shop Exchange");
+                <?PHP } ?> 
+                    
                 $("#dealer_txt").attr("readonly","readonly");
                 destroyAutoComplete();
             }
@@ -845,16 +862,18 @@
 
 		function maker_change () {
 			var maker_id = $('#maker option:selected').val();
-			$("#dealer_txt").val("");
+                        var sd_id = $("select[name='sd_id']").val();
+                        $("#dealer_txt").val("");
 			if (maker_id!="") {
 				$('.part_type').removeAttr("disabled");
 				// var temp = $(".part_type")[0];
 				// $(temp).trigger("change");
 				$('#maker').attr('disabled','disabled');
+                                
 				$.ajax({
 					url: "<?php echo base_url(); ?>index.php/create/getdealers",
 					type: "POST",
-					data: "maker_id="+maker_id,
+					data: {maker_id: maker_id, sd_id :sd_id },
 					dataType: "json",
 					async: false,
 					success: function(data){
@@ -883,8 +902,8 @@
 				$($(".part_type:first")[0]).removeAttr("disabled");
 				part_change({currentTarget : $('.part_type')});
 			} else{
-				$('#dealer_name').html("<option selected value=''><?php echo lang('create_general_select'); ?></option>");
-				destroyAutoComplete();
+                               $('#dealer_name').html("<option selected value=''><?php echo lang('create_general_select'); ?></option>");
+                               destroyAutoComplete();
 				frontshop();
 			}
 		}

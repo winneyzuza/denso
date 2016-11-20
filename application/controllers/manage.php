@@ -175,6 +175,8 @@ class Manage extends CI_Controller {
                	unset($PostData['dummy']);
 				$table = "ros_form";
 				$log_ros_no = $PostData['ros_no'];
+                                
+                                
 				if(isset($PostData['status'])){
 					$log_status = $PostData['status'];
 					$allowed = FALSE;
@@ -217,11 +219,14 @@ class Manage extends CI_Controller {
 				));
 			} else{
 				if ($ros_no!=="") {
+                                        
 					if (!($this->manage_model->allowedtoedit($this->session->userdata("sd_id"),$ros_no,"ros_form"))) {
 						redirect("home?message=".urlencode("Not allowed to edit the selected ROS."));
 						die();
 					}
+                                        
 					$table = "ros_form";
+                                        $this->session->set_userdata("rosNo",$ros_no);
 					$data['ros_info'] = $this->manage_model->getrosinfo($ros_no,$table);
 					if (!empty($data['ros_info'])) {
 						// echo "<pre>";print_r($data['ros_info']);echo "</pre>";
@@ -276,6 +281,8 @@ class Manage extends CI_Controller {
 			if ($this->session->userdata("logged_in")) {
 				if ($this->input->post("maker_id")) {
 					$maker_id = $this->input->post("maker_id");
+                                        $sd_id = $this->input->post("sd_id");
+                                        
 					$dealers = $this->manage_model->getdealers($maker_id,$this->session->userdata("created_by"));
 					if (isset($dealers) && !empty($dealers)) {
 						$return['code'] = 1;
@@ -417,10 +424,6 @@ class Manage extends CI_Controller {
                                         
                                         if($this->input->post("part_type") == "pumpinjector"){
                                             $models = $this->manage_model->getfailuremodelsPumpInject($PostData);
-                                            
-                                            $this->load->model('manage_model');
-                                            $data['ext_field'] = $this->manage_model->getROSPumpInject($PostData);
-                                            $this->session->set_userdata('ext_field',$data['ext_field']);
                                         }else{
                                             $models = $this->manage_model->getfailuremodels($PostData);
                                         }
