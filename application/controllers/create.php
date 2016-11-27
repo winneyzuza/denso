@@ -149,18 +149,18 @@ class Create extends CI_Controller {
                         $remark = $PostData['remark'];
                         
                         $failure_sn_11 = $PostData['failure_sn_11'];
-                        $failure_sn_22 = $PostData['failure_sn_22'];
-                        $failure_sn_33 = $PostData['failure_sn_33'];
-                        $failure_sn_44 = $PostData['failure_sn_44'];
-                        $failure_sn_55 = $PostData['failure_sn_55'];
-                        $failure_sn_66 = $PostData['failure_sn_66'];
+                        $failure_sn_22 = $PostData['failure_sn_2'];
+                        $failure_sn_33 = $PostData['failure_sn_3'];
+                        $failure_sn_44 = $PostData['failure_sn_4'];
+                        $failure_sn_55 = $PostData['failure_sn_5'];
+                        $failure_sn_66 = $PostData['failure_sn_6'];
                         
                         $new_sn_11 = $PostData['new_sn_11'];
-                        $new_sn_22 = $PostData['new_sn_22'];
-                        $new_sn_33 = $PostData['new_sn_33'];
-                        $new_sn_44 = $PostData['new_sn_44'];
-                        $new_sn_55 = $PostData['new_sn_55'];
-                        $new_sn_66 = $PostData['new_sn_66'];
+                        $new_sn_22 = $PostData['new_sn_2'];
+                        $new_sn_33 = $PostData['new_sn_3'];
+                        $new_sn_44 = $PostData['new_sn_4'];
+                        $new_sn_55 = $PostData['new_sn_5'];
+                        $new_sn_66 = $PostData['new_sn_6'];
                         
 
                         $remark1 = $PostData['remark1'];

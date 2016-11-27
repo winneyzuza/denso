@@ -255,20 +255,20 @@ else{ ?>
         <tr class="injector parttype">
             <td class="right"><?php echo lang('create_failure') . " " . lang('create_sn') . " "; ?></td>
             <td><textarea name="failure_sn_11"></textarea></td>
-            <td><textarea name="failure_sn_22"></textarea></td>
-            <td><textarea name="failure_sn_33"></textarea></td>
-            <td><textarea name="failure_sn_44"></textarea></td>
-            <td><textarea name="failure_sn_55"></textarea></td>
-            <td><textarea name="failure_sn_66"></textarea></td>
+            <td><textarea name="failure_sn_2"></textarea></td>
+            <td><textarea name="failure_sn_3"></textarea></td>
+            <td><textarea name="failure_sn_4"></textarea></td>
+            <td><textarea name="failure_sn_5"></textarea></td>
+            <td><textarea name="failure_sn_6"></textarea></td>
         <tr class="empty_row"></tr>
         <tr class="injector parttype">
             <td class="right"><?php echo lang('create_new_sn') . " "; ?></td>
             <td><textarea name="new_sn_11"></textarea></td>
-            <td><textarea name="new_sn_22"></textarea></td>
-            <td><textarea name="new_sn_33"></textarea></td>
-            <td><textarea name="new_sn_44"></textarea></td>
-            <td><textarea name="new_sn_55"></textarea></td>
-            <td><textarea name="new_sn_66"></textarea></td>
+            <td><textarea name="new_sn_2"></textarea></td>
+            <td><textarea name="new_sn_3"></textarea></td>
+            <td><textarea name="new_sn_4"></textarea></td>
+            <td><textarea name="new_sn_5"></textarea></td>
+            <td><textarea name="new_sn_6"></textarea></td>
         <tr class="empty_row"></tr>
         <tr>
             <td><?PHP echo lang('create_remark'); ?></td>
